@@ -1,13 +1,15 @@
 #pragma once
 #ifndef AttackBoost_H_
 #define AttackBoost_H_
+#include "item.h"
 
-// 여기서부터 작성
-
-
-
-
-
+class AttackBoost : public Item {
+private:
+    int AttackIncrease = 10;
+public:
+    std::string getName() const override;
+    void Use(Player& player) override;
+};
 
 #endif
 
