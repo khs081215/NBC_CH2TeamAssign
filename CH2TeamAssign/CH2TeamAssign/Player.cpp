@@ -99,12 +99,12 @@ void Player::Attack(Monster* monster)
 
 void Player::UseItem(int index)
 {
-	if (index < 0 || index >= inventory.size())
+	if (index < 0 || index >= (int)inventory.size())
 	{
 		cout << "아이템 인덱스가 잘못되었습니다." << endl;
 		return;
 	}
-	//inventory[index]->___(this);
+	inventory[index]->Use(*this);
 }
 void Player::AddItem(Item* item)
 {
