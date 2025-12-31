@@ -20,7 +20,7 @@ int Player::getlevel() const { return level; }
 int Player::getcurHealth() const { return curHealth; }
 int Player::getmaxHealth() { return maxHealth; }
 //int Player::getattack() const { return attack; }
-int Player::getattack() const { return attack + bonusAttack; }		// ¹°¾àÀ¸·Î ¾ò´Â Ãß°¡ °ø°İ·Â±îÁö ÇÔ²² ¹İÈ¯ Ãß°¡
+int Player::getattack() const { return attack + bonusAttack; }		// ë¬¼ì•½ìœ¼ë¡œ ì–»ëŠ” ì¶”ê°€ ê³µê²©ë ¥ê¹Œì§€ í•¨ê»˜ ë°˜í™˜ ì¶”ê°€
 int Player::getexperience() { return experience; }
 int Player::getgold() { return gold; }
 
@@ -76,10 +76,10 @@ void Player::setgold(int gold)
 
 void Player::PrintStatus()
 {
-	cout << "[  " << playerName << "´ÔÀÇ ½ºÅÈ Ã¢  ]" << endl;
-	cout << "Level : " << level << " | " << "ÇöÀç Ã¼·Â : " << curHealth << " | "
-		<< "°ø°İ·Â : " << attack << " | " << "ÇöÀç °æÇèÄ¡ : " << experience << " | "
-		<< "ÇöÀç °ñµå¾ç : " << gold << " | " << "ÇöÀç °æÇèÄ¡ : " << experience << " /100" << endl;
+	cout << "[  " << playerName << "ë‹˜ì˜ ìŠ¤íƒ¯ ì°½  ]" << endl;
+	cout << "Level : " << level << " | " << "í˜„ì¬ ì²´ë ¥ : " << curHealth << " | "
+		<< "ê³µê²©ë ¥ : " << attack << " | " << "í˜„ì¬ ê²½í—˜ì¹˜ : " << experience << " | "
+		<< "í˜„ì¬ ê³¨ë“œì–‘ : " << gold << " | " << "í˜„ì¬ ê²½í—˜ì¹˜ : " << experience << " /100" << endl;
 }
 void Player::LevelUP()
 {
@@ -95,14 +95,14 @@ void Player::LevelUP()
 void Player::Attack(Monster* monster)
 {
 	//bool isAlive = monster->setHP(monster->getHP() - attack);
-	monster->setHP(monster->getHP() - (attack + bonusAttack));		// ¹°¾à »ç¿ëÀ¸·Î ÀÎÇÑ Ãß°¡ °ø°İ·Â±îÁö ¹İ¿µµÈ µ¥¹ÌÁö °è»ê
+	monster->setHP(monster->getHP() - (attack + bonusAttack));		// ë¬¼ì•½ ì‚¬ìš©ìœ¼ë¡œ ì¸í•œ ì¶”ê°€ ê³µê²©ë ¥ê¹Œì§€ ë°˜ì˜ëœ ë°ë¯¸ì§€ ê³„ì‚°
 }
 
 void Player::UseItem(int index)
 {
 	if (index < 0 || index >= (int)inventory.size())
 	{
-		cout << "¾ÆÀÌÅÛ ÀÎµ¦½º°¡ Àß¸øµÇ¾ú½À´Ï´Ù." << endl;
+		cout << "ì•„ì´í…œ ì¸ë±ìŠ¤ê°€ ì˜ëª»ë˜ì—ˆìŠµë‹ˆë‹¤." << endl;
 		return;
 	}
 	inventory[index]->Use(*this);
@@ -112,7 +112,7 @@ void Player::AddItem(Item* item)
 	inventory.push_back(item);
 }
 
-// ============================ ¾ÆÀÌÅÛ »ç¿ë À§ÇÑ Ãß°¡ ÇÔ¼ö ===================================== //
+// ============================ ì•„ì´í…œ ì‚¬ìš© ìœ„í•œ ì¶”ê°€ í•¨ìˆ˜ ===================================== //
 void Player::healthRestore(int restore)
 {
 	curHealth += restore;

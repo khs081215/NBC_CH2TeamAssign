@@ -20,7 +20,7 @@ protected:
 	int experience;
 	int gold;
 	std::vector<Item*> inventory;
-	// ================= Ãß°¡ ¸â¹ö º¯¼ö ================== //
+	// ================= ì¶”ê°€ ë©¤ë²„ ë³€ìˆ˜ ================== //
 	int bonusAttack = 0;
 	// =============================================== //
 
@@ -49,7 +49,7 @@ public:
 	void setexperience(int experience);
 	void setgold(int gold);
 
-	// ======================== ¾ÆÀÌÅÛ »ç¿ë À§ÇÑ Ãß°¡ ¸â¹ö ÇÔ¼ö =================== //
+	// ======================== ì•„ì´í…œ ì‚¬ìš© ìœ„í•œ ì¶”ê°€ ë©¤ë²„ í•¨ìˆ˜ =================== //
 	void healthRestore(int restore);
 	void IncreaseATK(int bonusAttack);
 	void clearAttackBuff();
