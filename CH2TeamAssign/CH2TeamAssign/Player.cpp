@@ -93,8 +93,7 @@ void Player::LevelUP()
 }
 void Player::Attack(Monster* monster)
 {
-	cout << playerName << "님이 " << attack << "만큼 공격합니다." << endl;
-	// 공격 구현 전 상태
+	bool isAlive = monster->setHP(monster->getHP() - attack);
 }
 
 void Player::UseItem(int index)
