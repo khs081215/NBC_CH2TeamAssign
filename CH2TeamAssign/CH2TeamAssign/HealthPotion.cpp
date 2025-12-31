@@ -8,7 +8,7 @@ string HealthPotion::getName() const {
     return name;
 }
 
-int HealthPotion::GetPrice() const {
+int HealthPotion::getPrice() const {
     return price;
 }
 

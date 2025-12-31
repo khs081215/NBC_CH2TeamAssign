@@ -11,7 +11,7 @@ private:
     int price = 20;
 public:
     std::string getName() const override;
-    int GetPrice() const override;
+    int getPrice() const override;
     void Use(Player& player) override;
 };
 #endif

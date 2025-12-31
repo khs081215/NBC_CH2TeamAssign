@@ -8,7 +8,7 @@ string AttackBoost::getName() const {
     return name;
 }
 
-int AttackBoost::GetPrice() const {
+int AttackBoost::getPrice() const {
     return price;
 }
 
