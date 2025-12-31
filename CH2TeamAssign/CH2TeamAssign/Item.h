@@ -9,8 +9,8 @@ class Item {
 public:
     virtual ~Item() = default;
 
-    virtual std::string getName() const = 0;    //  name getter ÇÔ¼ö
-    virtual int getPrice() const = 0;                // price getter ÇÔ¼ö
-    virtual void Use(Player& player) = 0;       // player ¿¡°Ô ¾ÆÀÌÅÛ »ç¿ë È£Ãâ ÇÔ¼ö
+    virtual std::string getName() const = 0;    //  name getter í•¨ìˆ˜
+    virtual int getPrice() const = 0;                // price getter í•¨ìˆ˜
+    virtual void Use(Player& player) = 0;       // player ì—ê²Œ ì•„ì´í…œ ì‚¬ìš© í˜¸ì¶œ í•¨ìˆ˜
 };
 #endif

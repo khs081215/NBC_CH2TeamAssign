@@ -6,7 +6,7 @@
 
 class AttackBoost : public Item {
 private:
-    std::string name = "°ø°İ·Â Áõ°¡ ¹°¾à";
+    std::string name = "ê³µê²©ë ¥ ì¦ê°€ ë¬¼ì•½";
     int AttackIncrease = 10;
     int price = 20;
 public:

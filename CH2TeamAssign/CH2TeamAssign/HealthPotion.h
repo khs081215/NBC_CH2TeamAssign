@@ -6,7 +6,7 @@
 
 class HealthPotion : public Item {
 private:
-    std::string name = "Ã¼·Â ¹°¾à";
+    std::string name = "ì²´ë ¥ ë¬¼ì•½";
     int HealthRestore = 50;
     int price = 10;
 public:
