@@ -19,7 +19,7 @@ int main()
     bool ateattackpotion = false;
 
     //몬스터 변수
-    Monster* spawnedMonster;
+    unique_ptr<Monster> spawnedMonster;
 
     vector<string> killedmonster;
 
@@ -27,22 +27,24 @@ int main()
 
     cout << "캐릭터 이름을 입력하세요";
     cin >> characterName;
+    //TODO: 캐릭터이름 
+
 
     //플레이어 생성자
-    //Player myplayer(characterName);
+    //Player myPlayer(characterName);
 
     //플레이어가 싱글톤이라면
-     Player* myplayer=Player::getInstance(characterName);
+     Player* myPlayer=Player::getInstance(characterName);
 
 
-    cout << "캐릭터 " + characterName + " 생성 완료! 레벨: " + myplayer.GetLevel() + ", 체력: " + myplayer.GetHP() + ", 공격력: " + myplayer.GetAttack()<<endl;
+    cout << "캐릭터 " + characterName + " 생성 완료! 레벨: " + myPlayer.GetLevel() + ", 체력: " + myPlayer.GetHP() + ", 공격력: " + myPlayer.GetAttack()<<endl;
    
 
     //랜덤함수 구현
     srand((unsigned int)time(NULL));
 
 
-    while (myplayer.GetLevel() < 10) {
+    while (myPlayer.GetLevel() < 10) {
 
 
 
@@ -51,23 +53,23 @@ int main()
         
         switch (rand() % 4) {
         case 0:
-            spawnedMonster = new Goblin(myplayer.GetLevel());
+            spawnedMonster = make_unique<Goblin>(myPlayer.GetLevel());
             break;
         case 1:
-            spawnedMonster = new Orc(myplayer.GetLevel());
+            spawnedMonster = make_unique<Orc>(myPlayer.GetLevel());
+            break;
+        case 2:
+            spawnedMonster = make_unique<Troll>(myPlayer.GetLevel());
             break;
         case 3:
-            spawnedMonster = new Troll(myplayer.GetLevel());
-            break;
-        case 4:
-            spawnedMonster = new Slime(myplayer.GetLevel());
+            spawnedMonster = make_unique<Slime>(myPlayer.GetLevel());
             break;
         }
         
 
 
         //몬스터와 전투 개시
-        cout << "몬스터 " + spawnedmonster.GetName() + " 등장! 체력: " + spawnedmonster.GetHP() + ", 공격력: " + spawnedmonster.GetAttack();
+        cout << "몬스터 " + spawnedMonster.GetName() + " 등장! 체력: " + spawnedMonster.GetHP() + ", 공격력: " + spawnedMonster.GetAttack();
 
         //해당 몬스터와의 전투
         while (true)
@@ -75,46 +77,46 @@ int main()
             //행동 결정
             //체력이 80% 이하면 공격력 포션을 마신다.
             //체력이 20% 이하면 HP포션을 마신다.
-            if (myplayer.GetHP() < (myplayer.GetMaxHP() * 0.8))
+            if (myPlayer.GetHP() < (myPlayer.GetMaxHP() * 0.8))
             {
                 //공격력 포션을 마신다.
                 ateattackpotion = true;
-                myplayer.SetAttack(myPlayer.GetAttack() + 10);
+                myPlayer.SetAttack(myPlayer.GetAttack() + 10);
                 //TODO: 포션 제거 코드
             }
-            if (myplayer.GetHP() < (myplayer.GetMaxHP() * 0.2))
+            if (myPlayer.GetHP() < (myPlayer.GetMaxHP() * 0.2))
             {
                 //HP 포션을 마신다.
                 //TODO: 포션 제거 코드
             }
 
             //몬스터와 전투
-            if (spawnedmonster.GetHP() <= myplayer.GetAttack())
+            if (spawnedMonster.GetHP() <= myPlayer.GetAttack())
             {
-                spawenedmonster.takeDamage(myplayer.GetAttack());
-                cout << myplayer.GetName() + "가 " + spawnedmonster.GetName() + "을 공격합니다! " + spawnedmonster.GetName() + " 처치!" << endl;
+                spawnedMonster.takeDamage(myPlayer.GetAttack());
+                cout << myPlayer.GetName() + "가 " + spawnedMonster.GetName() + "을 공격합니다! " + spawnedMonster.GetName() + " 처치!" << endl;
                 int getgold = rand() % 11 + 10;
-                cout << myplayer.GetName() + "가 50 EXP와 " << getgold << "골드를 획득했습니다.";
-                myplayer.SetExp(myplayer.GetExp() + 50);
-                myplayer.SetGold(myplayer.GetGold() + getgold);
-                cout << "현재 EXP: " << myplayer.GetExp() << "/100, 골드: " << myplayer.GetGold() << endl;
+                cout << myPlayer.GetName() + "가 50 EXP와 " << getgold << "골드를 획득했습니다.";
+                myPlayer.SetExp(myPlayer.GetExp() + 50);
+                myPlayer.SetGold(myPlayer.GetGold() + getgold);
+                cout << "현재 EXP: " << myPlayer.GetExp() << "/100, 골드: " << myPlayer.GetGold() << endl;
                 int randitemnum = rand() % 10;
                 if (randitemnum < 3)
                 {
                     //TODO: 아이템 획득
                 }
-                killedmonster.push_back(spawnedmonster.GetName());
+                killedmonster.push_back(spawnedMonster.GetName());
                 break;
             }
 
-            spawenedmonster.takeDamage(myplayer.GetAttack());
-            cout << myplayer.GetName() + "가 " + spawnedmonster.GetName() + "을 공격합니다! " + spawnedmonster.GetName() + " 체력: " + spawnedmonster.GetHP() << endl;
+            spawnedMonster.takeDamage(myPlayer.GetAttack());
+            cout << myPlayer.GetName() + "가 " + spawnedMonster.GetName() + "을 공격합니다! " + spawnedMonster.GetName() + " 체력: " + spawnedMonster.GetHP() << endl;
 
-            if (myplayer.GetHP) <= spawnedmonster.GetAttack())
+            if (myPlayer.GetHP) <= spawnedMonster.GetAttack())
             {
-                myplayer.SetHP(0);
-                cout << spawnedmonster.GetName() + ".가 " + myplayer.GetName() + "을 공격합니다! " + myplayer.GetName() + " 체력: " + myplayer.GetHP() << "→ 0" << endl;
-                cout << myplayer.GetName() + "가 사망했습니다. 게임 오버!" << endl;
+                myPlayer.SetHP(0);
+                cout << spawnedMonster.GetName() + ".가 " + myPlayer.GetName() + "을 공격합니다! " + myPlayer.GetName() + " 체력: " + myPlayer.GetHP() << "→ 0" << endl;
+                cout << myPlayer.GetName() + "가 사망했습니다. 게임 오버!" << endl;
                 cout << "잡은 몬스터 : ";
                 for (int i = 0; i < killedmonster.size(); i++)
                 {
@@ -123,24 +125,24 @@ int main()
                 cout << endl;
                 break;
                 }
-                myplayer.SetHP(myplayer.GetHP() - spawnedmonster.GetAttack());
-                cout << spawnedmonster.GetName() + "가 " + myplayer.GetName() + "을 공격합니다! " + myplayer.GetName() + " 체력: " + myplayer.GetHP() << endl;
+                myPlayer.SetHP(myPlayer.GetHP() - spawnedMonster.GetAttack());
+                cout << spawnedMonster.GetName() + "가 " + myPlayer.GetName() + "을 공격합니다! " + myPlayer.GetName() + " 체력: " + myPlayer.GetHP() << endl;
 
                 //TODO: 캐릭터 상태 확인하는 코드
         }
 
-        //동적할당해제
-        delete spawnedmonster;
+
+        spawnedMonster.reset();
 
         //포션으로 올라간 공격력을 낮춘다.
         if (ateattackpotion)
         {
-            myplayer.SetAttack(myPlayer.GetAttack() - 10);
+            myPlayer.SetAttack(myPlayer.GetAttack() - 10);
             ateattackpotion = false;
         }
 
 
-        if (myplayer.GetHP() == 0)
+        if (myPlayer.GetHP() == 0)
         {
             break;
         }
@@ -162,7 +164,7 @@ int main()
         if (yesornoString.compare("Y") == 0)
         {
             //TODO: 상점 코드
-            EnterStore(myplayer);
+            EnterStore(myPlayer);
         }
 
     }
