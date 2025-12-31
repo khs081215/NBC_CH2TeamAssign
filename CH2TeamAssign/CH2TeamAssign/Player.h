@@ -20,6 +20,9 @@ protected:
 	int experience;
 	int gold;
 	std::vector<Item*> inventory;
+	// ================= 추가 멤버 변수 ================== //
+	int bonusAttack = 0;
+	// =============================================== //
 
 public:
 	Player(const std::string& playerName);
@@ -45,6 +48,13 @@ public:
 	void setattack(int attack);
 	void setexperience(int experience);
 	void setgold(int gold);
+
+	// ======================== 아이템 사용 위한 추가 멤버 함수 =================== //
+	void healthRestore(int restore);
+	void IncreaseATK(int bonusAttack);
+	void clearAttackBuff();
+	// ==================================================================== //
+
 };
 
 #endif
