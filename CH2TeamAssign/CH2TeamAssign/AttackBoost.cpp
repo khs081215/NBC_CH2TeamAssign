@@ -5,7 +5,7 @@
 using namespace std;
 
 string AttackBoost::getName() const {
-    return "공격력 증가 포션";
+    return name;
 }
 
 int AttackBoost::GetPrice() const {

@@ -5,7 +5,7 @@
 using namespace std;
 
 string HealthPotion::getName() const {
-    return "체력 회복 포션";
+    return name;
 }
 
 int HealthPotion::GetPrice() const {
