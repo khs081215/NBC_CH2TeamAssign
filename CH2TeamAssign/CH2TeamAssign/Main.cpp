@@ -7,10 +7,20 @@
 #include "Store.h"
 #include <iostream>
 
+#include "Slime.h"
+#include "Goblin.h"
 using namespace std;
 
-int main()
-{
-    cout << "Hello World" << endl;
+int main() {
+    // 이제 public 생성자를 통해 객체 생성이 가능합니다.
+    Monster* s = new Slime();
+    Monster* g = new Goblin();
+
+    s->showInfo();
+    g->showInfo();
+
+    delete s;
+    delete g;
+
     return 0;
 }
