@@ -1,17 +1,18 @@
 #pragma once
 #ifndef AttackBoost_H_
 #define AttackBoost_H_
-#include <string>
 #include "item.h"
+#include <string>
 
 class AttackBoost : public Item {
 private:
-    std::string name = "공격력 증가 물약";
     int AttackIncrease = 10;
-    int price = 20;
 public:
-    std::string getName() const override;
-    int getPrice() const override;
+    AttackBoost() {
+        name = "공격력 포션";
+        type = ItemType::HealthPotion;
+        price = 10;
+    }
     void Use(Player& player) override;
 };
 #endif

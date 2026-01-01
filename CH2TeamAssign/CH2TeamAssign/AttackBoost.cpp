@@ -4,14 +4,6 @@
 
 using namespace std;
 
-string AttackBoost::getName() const {
-    return name;
-}
-
-int AttackBoost::getPrice() const {
-    return price;
-}
-
 void AttackBoost::Use(Player& player) {
     player.IncreaseATK(AttackIncrease);
 }
