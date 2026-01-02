@@ -19,7 +19,6 @@ const string& Player::getplayerName() const { return playerName; }
 int Player::getlevel() const { return level; }
 int Player::getcurHealth() const { return curHealth; }
 int Player::getmaxHealth() { return maxHealth; }
-//int Player::getattack() const { return attack; }
 int Player::getattack() const { return attack + bonusAttack; }		// 물약으로 얻는 추가 공격력까지 함께 반환 추가
 int Player::getexperience() { return experience; }
 int Player::getgold() { return gold; }
@@ -94,24 +93,8 @@ void Player::LevelUP()
 }
 void Player::Attack(Monster* monster)
 {
-	//bool isAlive = monster->setHP(monster->getHP() - attack);
-	monster->setHP(monster->getHP() - (attack + bonusAttack));		// 물약 사용으로 인한 추가 공격력까지 반영된 데미지 계산
+	bool isAlive = monster->setHP(monster->getHP() - (attack + bonusAttack));		// 물약 사용으로 인한 추가 공격력까지 반영된 데미지 계산
 }
-
-// 기존 UseItem 함수
-//void Player::UseItem(int index)
-//{
-//	if (index < 0 || index >= (int)inventory.size())
-//	{
-//		cout << "아이템 인덱스가 잘못되었습니다." << endl;
-//		return;
-//	}
-//	inventory[index]->Use(*this);
-//}
-//void Player::AddItem(Item* item)
-//{
-//	inventory.push_back(item);
-//}
 
 bool Player::UseItem(ItemType type)
 {

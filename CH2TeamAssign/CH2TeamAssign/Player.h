@@ -21,21 +21,18 @@ protected:
 	int experience;
 	int gold;
 	std::vector<Item*> inventory;
-	// ================= 추가 멤버 변수 ================== //
 	int bonusAttack = 0;
-	// =============================================== //
 
 public:
 	Player(const std::string& playerName);
 	~Player();
 
-	void Attack(Monster* monster);
-	void PrintStatus();
-	//void UseItem(int index); // 기존 아이템 사용 함수
-	bool UseItem(ItemType type); // (변경) 아이템 사용 함수
-	bool ItemAutoUse();		// (추가) 아이템 자동 사용 함수
-	void AddItem(Item* item);
-	void LevelUP();
+	void Attack(Monster* monster);  // 몬스터 공격(생사여부)
+	void PrintStatus();             // 플레이어 상태창
+	bool UseItem(ItemType type);    // 아이템 사용 함수
+	bool ItemAutoUse();		        // 아이템 자동 사용 함수
+	void AddItem(Item* item);       // 아이템 사용
+	void LevelUP();                 // 레벨업
 
 	const std::string& getplayerName() const;
 	int getlevel() const;
