@@ -98,19 +98,73 @@ void Player::Attack(Monster* monster)
 	monster->setHP(monster->getHP() - (attack + bonusAttack));		// 물약 사용으로 인한 추가 공격력까지 반영된 데미지 계산
 }
 
-void Player::UseItem(int index)
+// 기존 UseItem 함수
+//void Player::UseItem(int index)
+//{
+//	if (index < 0 || index >= (int)inventory.size())
+//	{
+//		cout << "아이템 인덱스가 잘못되었습니다." << endl;
+//		return;
+//	}
+//	inventory[index]->Use(*this);
+//}
+//void Player::AddItem(Item* item)
+//{
+//	inventory.push_back(item);
+//}
+
+bool Player::UseItem(ItemType type)
 {
-	if (index < 0 || index >= (int)inventory.size())
+	for (auto it = inventory.begin(); it != inventory.end(); ++it)
 	{
-		cout << "아이템 인덱스가 잘못되었습니다." << endl;
-		return;
+		if ((*it)->GetItemType() == type)
+		{
+			(*it)->Use(*this);
+			delete* it;
+			inventory.erase(it);
+			return true;
+		}
 	}
-	inventory[index]->Use(*this);
+	return false;
 }
+
+// 메인에서 공격전에 호출해주면 됨
+// 1. 인벤토리가 비었다면 false 반환 > 공격 로직 호출
+// 2. 아이템을 사용했다면 true 반환 > 턴 종료
+bool Player::ItemAutoUse()
+{
+	// 인벤토리 비어 있으면 종료
+	if (inventory.empty())
+	{
+		cout << "인벤토리가 비었습니다." << endl;
+		return false;
+	}
+
+	const float hpRatio = static_cast<float>(curHealth) / maxHealth;
+	// 체력 50% 이하 > 체력 물약
+	if (hpRatio <= 0.5f)
+	{
+		if (Player::UseItem(ItemType::HealthPotion))
+		{
+			return true;
+		}
+	}
+	// 체력 80% 이하 > 공격력 물약
+	if (hpRatio <= 0.8f)
+	{
+		if (Player::UseItem(ItemType::AttackPotion))
+		{
+			return true;
+		}
+	}
+	return false;
+}
+
 void Player::AddItem(Item* item)
 {
 	inventory.push_back(item);
 }
+
 
 // ============================ 아이템 사용 위한 추가 함수 ===================================== //
 void Player::healthRestore(int restore)

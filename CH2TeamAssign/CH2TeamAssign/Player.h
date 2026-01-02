@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include "ItemType.h"
 
 class Monster;
 class Item;
@@ -30,7 +31,9 @@ public:
 
 	void Attack(Monster* monster);
 	void PrintStatus();
-	void UseItem(int index);
+	//void UseItem(int index); // 기존 아이템 사용 함수
+	bool UseItem(ItemType type); // (변경) 아이템 사용 함수
+	bool ItemAutoUse();		// (추가) 아이템 자동 사용 함수
 	void AddItem(Item* item);
 	void LevelUP();
 
