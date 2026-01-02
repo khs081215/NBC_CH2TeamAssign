@@ -20,8 +20,6 @@ using namespace std;
 int main()
 {
     string characterName;
-    int randnum;
-    bool ateattackpotion = false;
 
     //몬스터 변수
     unique_ptr<Monster> spawnedMonster;
@@ -66,20 +64,16 @@ int main()
 
         switch (rand() % 4) {
         case 0:
-            //spawnedMonster = make_unique<Goblin>(myPlayer.getlevel());
-            spawnedMonster = make_unique<Goblin>();
+            spawnedMonster = make_unique<Goblin>(myPlayer.getlevel());
             break;
         case 1:
-            //spawnedMonster = make_unique<Orc>(myPlayer.getlevel());
-            spawnedMonster = make_unique<Orc>();
+            spawnedMonster = make_unique<Orc>(myPlayer.getlevel());
             break;
         case 2:
-            //spawnedMonster = make_unique<Troll>(myPlayer.getlevel());
-            spawnedMonster = make_unique<Troll>();
+            spawnedMonster = make_unique<Troll>(myPlayer.getlevel());
             break;
         case 3:
-            //spawnedMonster = make_unique<Slime>(myPlayer.getlevel());
-            spawnedMonster = make_unique<Slime>();
+            spawnedMonster = make_unique<Slime>(myPlayer.getlevel());
             break;
         }
 
@@ -107,15 +101,25 @@ int main()
                 cout << myPlayer.getplayerName() + "가 " + spawnedMonster->GetName() + "을 공격합니다! " + spawnedMonster->GetName() + " 처치!" << endl;
                 int getgold = rand() % 11 + 10;
                 cout << myPlayer.getplayerName() + "가 50 EXP와 " << getgold << "골드를 획득했습니다.";
+                killedmonster.push_back("LV" +to_string(myPlayer.getlevel())+ spawnedMonster->GetName());
                 myPlayer.setexperience(50);
                 myPlayer.setgold(myPlayer.getgold() + getgold);
                 cout << "현재 EXP: " << myPlayer.getexperience() << "/100, 골드: " << myPlayer.getgold() << endl;
-                int randitemnum = rand() % 10;
-                if (randitemnum < 3)
+                int randitemnum = rand() % 100;
+                //아이템 획득
+                if (randitemnum < 15)
                 {
-                    //TODO: 아이템 획득
+                    Item* hp=new HealthPotion();
+                    myPlayer.AddItem(hp);
+                    cout << "\nHP포션 획득\n";
                 }
-                killedmonster.push_back(spawnedMonster->GetName());
+                else if (randitemnum < 30)
+                {
+                    Item* ab = new AttackBoost();
+                    myPlayer.AddItem(ab);
+                    cout << "\n공격포션 획득\n";
+                }
+                
                 break;
             }
 
@@ -148,12 +152,7 @@ int main()
         //스마트 포인터 초기화
         spawnedMonster.reset();
 
-        //포션으로 올라간 공격력을 낮춘다.
-        if (ateattackpotion)
-        {
-            myPlayer.setattack(myPlayer.getattack() - 10);
-            ateattackpotion = false;
-        }
+
 
 
         if (myPlayer.getcurHealth() == 0)
@@ -162,7 +161,7 @@ int main()
         }
 
 
-        //TODO: 캐릭터 상태 확인하는 코드
+        //캐릭터 상태 확인하는 코드
         string buffer;
         cout << "\n상태를 확인하시겠습니까? (Y/N)";
         cin >> buffer;
@@ -198,6 +197,12 @@ int main()
     }
     if (myPlayer.getlevel() == 10) {
         cout << "\n 10레벨 달성!!!" << endl;
+        cout << "잡은 몬스터 : ";
+        for (int i = 0; i < killedmonster.size(); i++)
+        {
+            cout << killedmonster[i] + " ";
+        }
+        cout << endl;
     }
     return 0;
 }

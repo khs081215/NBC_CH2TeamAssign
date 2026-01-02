@@ -10,7 +10,7 @@ private:
 public:
     AttackBoost() {
         name = "공격력 포션";
-        type = ItemType::HealthPotion;
+        type = ItemType::AttackPotion;
         price = 10;
     }
     void Use(Player& player) override;

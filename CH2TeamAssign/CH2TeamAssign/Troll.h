@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 #ifndef TROLL_H
 #define TROLL_H
 
@@ -7,7 +7,7 @@
 
 class Troll : public Monster {
 public:
-    Troll();
+    Troll(int Playerlevel);
 
 };
 

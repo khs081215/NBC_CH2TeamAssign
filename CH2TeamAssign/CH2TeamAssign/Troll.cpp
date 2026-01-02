@@ -1,9 +1,9 @@
-﻿#include "Troll.h"
+#include "Troll.h"
 #include <iostream>
 
 
 // Troll 구현
-Troll::Troll() : Monster("Troll", 1, 120, 70)
+Troll::Troll(int Playerlevel) : Monster(Playerlevel,"Troll")
 {
 
 }
