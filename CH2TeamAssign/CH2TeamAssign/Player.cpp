@@ -77,7 +77,7 @@ void Player::PrintStatus()
 {
 	cout << "[  " << playerName << "님의 스탯 창  ]" << endl;
 	cout << "Level : " << level << " | " << "현재 체력 : " << curHealth << " | "
-		<< "공격력 : " << attack << " | " << "현재 경험치 : " << experience << " | "
+		<< "공격력 : " << attack << " | " 
 		<< "현재 골드양 : " << gold << " | " << "현재 경험치 : " << experience << " /100" << endl;
 }
 void Player::LevelUP()
