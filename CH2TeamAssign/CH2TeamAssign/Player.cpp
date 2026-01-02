@@ -19,7 +19,7 @@ const string& Player::getplayerName() const { return playerName; }
 int Player::getlevel() const { return level; }
 int Player::getcurHealth() const { return curHealth; }
 int Player::getmaxHealth() { return maxHealth; }
-int Player::getattack() const { return attack + bonusAttack; }		// ë¬¼ì•½ìœ¼ë¡œ ì–»ëŠ” ì¶”ê°€ ê³µê²©ë ¥ê¹Œì§€ í•¨ê»˜ ë°˜í™˜ ì¶”ê°€
+int Player::getattack() const { return attack + bonusAttack; }		// ¹°¾àÀ¸·Î ¾ò´Â Ãß°¡ °ø°İ·Â±îÁö ÇÔ²² ¹İÈ¯ Ãß°¡
 int Player::getexperience() { return experience; }
 int Player::getgold() { return gold; }
 
@@ -75,10 +75,10 @@ void Player::setgold(int gold)
 
 void Player::PrintStatus()
 {
-	cout << "[  " << playerName << "ë‹˜ì˜ ìŠ¤íƒ¯ ì°½  ]" << endl;
-	cout << "Level : " << level << " | " << "í˜„ì¬ ì²´ë ¥ : " << curHealth << " | "
-		<< "ê³µê²©ë ¥ : " << attack << " | " << "í˜„ì¬ ê²½í—˜ì¹˜ : " << experience << " | "
-		<< "í˜„ì¬ ê³¨ë“œì–‘ : " << gold << " | " << "í˜„ì¬ ê²½í—˜ì¹˜ : " << experience << " /100" << endl;
+	cout << "[  " << playerName << "´ÔÀÇ ½ºÅÈ Ã¢  ]" << endl;
+	cout << "Level : " << level << " | " << "ÇöÀç Ã¼·Â : " << curHealth << " | "
+		<< "°ø°İ·Â : " << attack << " | " << "ÇöÀç °æÇèÄ¡ : " << experience << " | "
+		<< "ÇöÀç °ñµå¾ç : " << gold << " | " << "ÇöÀç °æÇèÄ¡ : " << experience << " /100" << endl;
 }
 void Player::LevelUP()
 {
@@ -86,6 +86,7 @@ void Player::LevelUP()
 	{
 		return;
 	}
+	cout << "·¹º§¾÷ ÇÏ¿´½À´Ï´Ù\n";
 	level++;
 	maxHealth += level * 20;
 	attack += level * 5;
@@ -93,7 +94,7 @@ void Player::LevelUP()
 }
 void Player::Attack(Monster* monster)
 {
-	bool isAlive = monster->setHP(monster->getHP() - (attack + bonusAttack));		// ë¬¼ì•½ ì‚¬ìš©ìœ¼ë¡œ ì¸í•œ ì¶”ê°€ ê³µê²©ë ¥ê¹Œì§€ ë°˜ì˜ëœ ë°ë¯¸ì§€ ê³„ì‚°
+	bool isAlive = monster->SetHP(monster->getcurHealth() - (attack + bonusAttack));		// ¹°¾à »ç¿ëÀ¸·Î ÀÎÇÑ Ãß°¡ °ø°İ·Â±îÁö ¹İ¿µµÈ µ¥¹ÌÁö °è»ê
 }
 
 bool Player::UseItem(ItemType type)
@@ -111,20 +112,20 @@ bool Player::UseItem(ItemType type)
 	return false;
 }
 
-// ë©”ì¸ì—ì„œ ê³µê²©ì „ì— í˜¸ì¶œí•´ì£¼ë©´ ë¨
-// 1. ì¸ë²¤í† ë¦¬ê°€ ë¹„ì—ˆë‹¤ë©´ false ë°˜í™˜ > ê³µê²© ë¡œì§ í˜¸ì¶œ
-// 2. ì•„ì´í…œì„ ì‚¬ìš©í–ˆë‹¤ë©´ true ë°˜í™˜ > í„´ ì¢…ë£Œ
+// ¸ŞÀÎ¿¡¼­ °ø°İÀü¿¡ È£ÃâÇØÁÖ¸é µÊ
+// 1. ÀÎº¥Åä¸®°¡ ºñ¾ú´Ù¸é false ¹İÈ¯ > °ø°İ ·ÎÁ÷ È£Ãâ
+// 2. ¾ÆÀÌÅÛÀ» »ç¿ëÇß´Ù¸é true ¹İÈ¯ > ÅÏ Á¾·á
 bool Player::ItemAutoUse()
 {
-	// ì¸ë²¤í† ë¦¬ ë¹„ì–´ ìˆìœ¼ë©´ ì¢…ë£Œ
+	// ÀÎº¥Åä¸® ºñ¾î ÀÖÀ¸¸é Á¾·á
 	if (inventory.empty())
 	{
-		cout << "ì¸ë²¤í† ë¦¬ê°€ ë¹„ì—ˆìŠµë‹ˆë‹¤." << endl;
+		cout << "ÀÎº¥Åä¸®°¡ ºñ¾ú½À´Ï´Ù." << endl;
 		return false;
 	}
 
 	const float hpRatio = static_cast<float>(curHealth) / maxHealth;
-	// ì²´ë ¥ 50% ì´í•˜ > ì²´ë ¥ ë¬¼ì•½
+	// Ã¼·Â 50% ÀÌÇÏ > Ã¼·Â ¹°¾à
 	if (hpRatio <= 0.5f)
 	{
 		if (Player::UseItem(ItemType::HealthPotion))
@@ -132,7 +133,7 @@ bool Player::ItemAutoUse()
 			return true;
 		}
 	}
-	// ì²´ë ¥ 80% ì´í•˜ > ê³µê²©ë ¥ ë¬¼ì•½
+	// Ã¼·Â 80% ÀÌÇÏ > °ø°İ·Â ¹°¾à
 	if (hpRatio <= 0.8f)
 	{
 		if (Player::UseItem(ItemType::AttackPotion))
@@ -149,7 +150,7 @@ void Player::AddItem(Item* item)
 }
 
 
-// ============================ ì•„ì´í…œ ì‚¬ìš© ìœ„í•œ ì¶”ê°€ í•¨ìˆ˜ ===================================== //
+// ============================ ¾ÆÀÌÅÛ »ç¿ë À§ÇÑ Ãß°¡ ÇÔ¼ö ===================================== //
 void Player::healthRestore(int restore)
 {
 	curHealth += restore;

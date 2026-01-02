@@ -1,4 +1,4 @@
-﻿#pragma once
+#pragma once
 
 #ifndef MONSTER_H
 #define MONSTER_H
@@ -21,6 +21,12 @@ public:
     //메인 함수에 영향
     virtual void showInfo();
     virtual ~Monster() {}
+
+    int getcurHealth();
+    string GetName();
+    int GetAttack();
+    bool SetHP(int inHP);
 };
+
 
 #endif

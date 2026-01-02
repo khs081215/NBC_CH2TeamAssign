@@ -5,5 +5,5 @@
 using namespace std;
 
 void HealthPotion::Use(Player& player) {
-    player.HealthRestore(HealthRestore);
+    player.healthRestore(HealthRestore);
 }
