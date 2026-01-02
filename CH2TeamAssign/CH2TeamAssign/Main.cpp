@@ -24,10 +24,17 @@ int main()
     vector<string> killedmonster;
 
 
+    while (true)
+    {
+        cout << "캐릭터 이름을 입력하세요"<<endl;
+        cin >> characterName;
 
-    cout << "캐릭터 이름을 입력하세요";
-    cin >> characterName;
-    //TODO: 캐릭터이름 
+        //캐릭터이름 공백 체크
+        if (characterName.compare("") != 0) break;
+        cout << "캐릭터 이름은 공백이 될 수 없습니다. 다시 입력해주세요" << endl;
+    }
+    
+    
 
 
     //플레이어 생성자
@@ -129,6 +136,7 @@ int main()
                 cout << spawnedMonster.GetName() + "가 " + myPlayer.GetName() + "을 공격합니다! " + myPlayer.GetName() + " 체력: " + myPlayer.GetHP() << endl;
 
                 //TODO: 캐릭터 상태 확인하는 코드
+                
         }
 
 
@@ -163,8 +171,10 @@ int main()
         }
         if (yesornoString.compare("Y") == 0)
         {
-            //TODO: 상점 코드
-            EnterStore(myPlayer);
+            //상점 코드
+            std::vector<City> cities = getCities();
+            City& currentCity = cities[0];
+            goToStore(currentCity, myPlayer.GetInventory(), myPlayer.GetGold());
         }
 
     }
