@@ -1,4 +1,8 @@
+//HealthPotion.h
 #pragma once
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef byte
 #ifndef HealthPotion_H_
 #define HealthPotion_H_
 #include <string>
@@ -6,7 +10,7 @@
 
 class HealthPotion : public Item {
 private:
-    std::string name = "체력 물약";
+    std::string name = "Health Potion";
     int HealthRestore = 50;
     int price = 10;
 public:

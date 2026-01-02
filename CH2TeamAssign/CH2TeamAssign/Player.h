@@ -1,52 +1,62 @@
 #pragma once
-#ifndef Player_H_
-#define Player_H_
-
-#include <iostream>
-#include <string>
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef byte
 #include <vector>
+#include <string>
+#include "ItemBase.h"
+
 
 class Monster;
-class Item;
 
-class Player
-{
+class Player {
 protected:
-	std::string playerName;
-	int level;
-	int curHealth;
-	int maxHealth;
-	int attack;
-	int experience;
-	int gold;
-	std::vector<Item*> inventory;
+    std::string playerName;
+    int level;
+    int curHealth;
+    int maxHealth;
+    int attack;
+    int experience;
+    int gold;
+
+    std::vector<ItemBase*> inventory;
+    ItemBase* equippedWeapon = nullptr;
 
 public:
-	Player(const std::string& playerName);
-	~Player();
+    Player(const std::string& name);
+    ~Player();
 
-	void Attack(Monster* monster);
-	void PrintStatus();
-	void UseItem(int index);
-	void AddItem(Item* item);
-	void LevelUP();
+    // Getter
+    const std::string& getplayerName() const;
+    int getlevel() const;
+    int getcurHealth() const;
+    int getmaxHealth();
+    int getattack() const;
+    int getexperience() const;
+    int getgold() const;
+    int& getGoldRef();
 
-	const std::string& getplayerName() const;
-	int getlevel() const;
-	int getcurHealth() const;
-	int getmaxHealth();
-	int getattack() const;
-	int getexperience();
-	int getgold();
+    // Setter
+    void setplayerName(const std::string& name);
+    void setlevel(int level);
+    bool setcurHealth(int hp);
+    void setattack(int atk);
+    void setexperience(int exp);
+    void setgold(int g);
 
-	void setplayerName(const std::string& playerName);
-	void setlevel(int level);
-	bool setcurHealth(int curHealth);
-	void setattack(int attack);
-	void setexperience(int experience);
-	void setgold(int gold);
+    void PrintStatus();
+    void LevelUP();
+    void Attack(Monster* monster);
+
+    void AddItem(ItemBase* item);
+    void UseItem(int index);
+    const std::vector<ItemBase*>& getInventory() const;
+
+    void RestoreHP(int amount);
+    void IncreaseATK(int amount);
+
+    // Equipment
+    void Equip(ItemBase* item);
+    void UnequipWeapon();
+    ItemBase* getEquippedWeapon() const;
 };
-
-#endif
-
-
