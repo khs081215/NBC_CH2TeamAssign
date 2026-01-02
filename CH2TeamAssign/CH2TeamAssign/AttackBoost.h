@@ -1,4 +1,8 @@
+//AttackBoost.H 
 #pragma once
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef byte
 #ifndef AttackBoost_H_
 #define AttackBoost_H_
 #include <string>
@@ -6,7 +10,7 @@
 
 class AttackBoost : public Item {
 private:
-    std::string name = "공격력 증가 물약";
+    std::string name = "Attack Boost Potion";
     int AttackIncrease = 10;
     int price = 20;
 public:

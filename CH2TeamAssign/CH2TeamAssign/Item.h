@@ -1,3 +1,8 @@
+//Item.h
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef byte   // Windows SDKì˜ byte typedef ì œê±°
+
 #pragma once
 #ifndef Item_H_
 #define Item_H_
@@ -9,8 +14,8 @@ class Item {
 public:
     virtual ~Item() = default;
 
-    virtual std::string getName() const = 0;    //  name getter ÇÔ¼ö
-    virtual int GetPrice() const = 0;                // price getter ÇÔ¼ö
-    virtual void Use(Player& player) = 0;       // player ¿¡°Ô ¾ÆÀÌÅÛ »ç¿ë È£Ãâ ÇÔ¼ö
+    virtual std::string getName() const = 0;    //  name getter í•¨ìˆ˜
+    virtual int GetPrice() const = 0;                // price getter í•¨ìˆ˜
+    virtual void Use(Player& player) = 0;       // player ì—ê²Œ ì•„ì´í…œ ì‚¬ìš© í˜¸ì¶œ í•¨ìˆ˜
 };
 #endif

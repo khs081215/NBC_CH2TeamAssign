@@ -26,7 +26,8 @@ void DrawMainUI() {
 
 
 
-int main() {
+void RunQuestTest()
+{
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
@@ -59,9 +60,9 @@ int main() {
                 QuestEventType::KillMonster,
                 "슬라임",
                 1
-                });
+            });
 
-            // 2. ⭐ 즉시 완료된 퀘스트 체크
+            // 2. 즉시 완료된 퀘스트 체크
             auto completed = gQuestManager.GetJustCompletedQuests();
             for (auto* q : completed) {
                 ShowQuestCompletePopup(q->GetStatusText());
@@ -78,7 +79,6 @@ int main() {
                 )
             );
 
-
             cout << "회복 물약을 획득했습니다!\n";
             _getch();
 
@@ -93,5 +93,5 @@ int main() {
     }
 
     cout << "게임 종료\n";
-    return 0;
 }
+

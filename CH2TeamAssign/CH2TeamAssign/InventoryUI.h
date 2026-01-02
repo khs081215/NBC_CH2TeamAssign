@@ -3,7 +3,6 @@
 #include <windows.h>
 #undef byte   // Windows SDK의 byte typedef 제거
 
-#include <vector>
-#include "City.h"
+#include "Player.h"
 
-std::vector<City> getCities();
+void OpenInventory(Player& player);
