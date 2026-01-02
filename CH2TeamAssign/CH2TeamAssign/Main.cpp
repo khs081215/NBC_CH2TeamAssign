@@ -1,4 +1,4 @@
-#include "AttackBoost.h"
+ï»¿#include "AttackBoost.h"
 #include "GameManager.h"
 #include "HealthPotion.h"
 #include "Item.h"
@@ -7,17 +7,25 @@
 #include "Store.h"
 #include <iostream>
 
-#include "Slime.h"
-#include "Goblin.h"
 using namespace std;
 
+#include "Slime.h"
+#include "Goblin.h"
+#include "Orc.h"
+#include "Troll.h"
+
 int main() {
-    // ÀÌÁ¦ public »ý¼ºÀÚ¸¦ ÅëÇØ °´Ã¼ »ý¼ºÀÌ °¡´ÉÇÕ´Ï´Ù.
+    //ìŠ¬ë¼ìž„, ê³ ë¸”ë¦° ì •ë³´ ë¶ˆëŸ¬ì˜¤ê¸°
     Monster* s = new Slime();
     Monster* g = new Goblin();
+    Monster* o = new Orc();
+    Monster* t = new Troll();
 
     s->showInfo();
     g->showInfo();
+    o->showInfo();
+    t->showInfo();
+
 
     delete s;
     delete g;

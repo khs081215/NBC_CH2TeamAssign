@@ -1,10 +1,10 @@
-#include "Orc.h"
+﻿#include "Orc.h"
 #include <iostream>
 
 
-// Orc ����
+// Orc 구현 체력 90, 공격력 50, 레벨 1 (예시)
 Orc::Orc() : Monster("Orc", 1, 90, 50) {}
 
 void Orc::Shout() {
-    std::cout << "��ũ�� ��ȿ�մϴ�!" << std::endl;
+    std::cout << "오크가 포효합니다!" << std::endl;
 }
