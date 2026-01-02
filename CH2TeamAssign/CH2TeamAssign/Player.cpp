@@ -1,171 +1,102 @@
-#include <iostream>
-#include "Monster.h"
-#include "Player.h"
-#include "Item.h"
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef byte
 
+#include "Player.h"
+#include "Inventory.h"
+#include "ItemBase.h"
+#include "Monster.h"
+
+#include <iostream>
 using namespace std;
 
-Player::Player(const string& playerName)
-	: playerName(playerName), level(1), curHealth(200), maxHealth(200), attack(30), experience(0), gold(0) {
+Player::Player(const string& name)
+    : playerName(name), level(1), curHealth(200), maxHealth(200),
+    attack(30), experience(0), gold(0), equippedWeapon(nullptr) {
 }
-Player ::~Player()
-{
-	for (Item* item : inventory)
-	{
-		delete item;
-	}
-}
+
+Player::~Player() {}
+
 const string& Player::getplayerName() const { return playerName; }
 int Player::getlevel() const { return level; }
 int Player::getcurHealth() const { return curHealth; }
-int Player::getmaxHealth() { return maxHealth; }
-int Player::getattack() const { return attack + bonusAttack; }		// ¹°¾àÀ¸·Î ¾ò´Â Ãß°¡ °ø°Ý·Â±îÁö ÇÔ²² ¹ÝÈ¯ Ãß°¡
-int Player::getexperience() { return experience; }
-int Player::getgold() { return gold; }
+int Player::getmaxHealth() const { return maxHealth; }
+int Player::getattack() const { return attack; }
+int Player::getexperience() const { return experience; }
+int Player::getgold() const { return gold; }
+int& Player::getGoldRef() { return gold; }
 
-void Player::setplayerName(const string& playerName)
-{
-	this->playerName = playerName;
+void Player::setplayerName(const string& name) { playerName = name; }
+void Player::setlevel(int lvl) { level = min(lvl, 10); }
+bool Player::setcurHealth(int hp) {
+    curHealth = max(0, min(hp, maxHealth));
+    return curHealth > 0;
 }
-void Player::setlevel(int level)
-{
-	if (level <= 10)
-	{
-		this->level = level;
-	}
-	else
-	{
-		this->level = 10;
-	}
+void Player::setattack(int atk) { attack = atk; }
+void Player::setexperience(int exp) {
+    experience += exp;
+    if (experience >= 100 && level < 10) {
+        experience -= 100;
+        LevelUP();
+    }
 }
-bool Player::setcurHealth(int curHealth)
-{
-	if (curHealth < 0)
-	{
-		this->curHealth = 0;
-	}
-	else if (curHealth > maxHealth)
-	{
-		this->curHealth = maxHealth;
-	}
-	else
-	{
-		this->curHealth = curHealth;
-	}
-	return this->curHealth > 0;
-}
-void Player::setattack(int attack)
-{
-	this->attack = attack;
-}
-void Player::setexperience(int experience)
-{
-	this->experience += experience;
+void Player::setgold(int g) { gold = g; }
 
-	if (this->experience >= 100 && level < 10)
-	{
-		this->experience -= 100;
-		LevelUP();
-	}
-}
-void Player::setgold(int gold)
-{
-	this->gold = gold;
+void Player::PrintStatus() {
+    cout << "[ " << playerName << " ìƒíƒœ ]\n";
+    cout << "LV " << level
+        << " | HP " << curHealth << "/" << maxHealth
+        << " | ATK " << attack
+        << " | EXP " << experience << "/100"
+        << " | GOLD " << gold << endl;
 }
 
-void Player::PrintStatus()
-{
-	cout << "[  " << playerName << "´ÔÀÇ ½ºÅÈ Ã¢  ]" << endl;
-	cout << "Level : " << level << " | " << "ÇöÀç Ã¼·Â : " << curHealth << " | "
-		<< "°ø°Ý·Â : " << attack << " | " << "ÇöÀç °æÇèÄ¡ : " << experience << " | "
-		<< "ÇöÀç °ñµå¾ç : " << gold << " | " << "ÇöÀç °æÇèÄ¡ : " << experience << " /100" << endl;
-}
-void Player::LevelUP()
-{
-	if (level >= 10)
-	{
-		return;
-	}
-	cout << "·¹º§¾÷ ÇÏ¿´½À´Ï´Ù\n";
-	level++;
-	maxHealth += level * 20;
-	attack += level * 5;
-	curHealth = maxHealth;
-}
-void Player::Attack(Monster* monster)
-{
-	bool isAlive = monster->SetHP(monster->getcurHealth() - (attack + bonusAttack));		// ¹°¾à »ç¿ëÀ¸·Î ÀÎÇÑ Ãß°¡ °ø°Ý·Â±îÁö ¹Ý¿µµÈ µ¥¹ÌÁö °è»ê
+void Player::LevelUP() {
+    level++;
+    maxHealth += level * 20;
+    attack += level * 5;
+    curHealth = maxHealth;
 }
 
-bool Player::UseItem(ItemType type)
-{
-	for (auto it = inventory.begin(); it != inventory.end(); ++it)
-	{
-		if ((*it)->GetItemType() == type)
-		{
-			(*it)->Use(*this);
-			delete* it;
-			inventory.erase(it);
-			return true;
-		}
-	}
-	return false;
+void Player::Attack(Monster* monster) {
+    monster->setHP(monster->getHP() - attack);
 }
 
-// ¸ÞÀÎ¿¡¼­ °ø°ÝÀü¿¡ È£ÃâÇØÁÖ¸é µÊ
-// 1. ÀÎº¥Åä¸®°¡ ºñ¾ú´Ù¸é false ¹ÝÈ¯ > °ø°Ý ·ÎÁ÷ È£Ãâ
-// 2. ¾ÆÀÌÅÛÀ» »ç¿ëÇß´Ù¸é true ¹ÝÈ¯ > ÅÏ Á¾·á
-bool Player::ItemAutoUse()
-{
-	// ÀÎº¥Åä¸® ºñ¾î ÀÖÀ¸¸é Á¾·á
-	if (inventory.empty())
-	{
-		cout << "ÀÎº¥Åä¸®°¡ ºñ¾ú½À´Ï´Ù." << endl;
-		return false;
-	}
-
-	const float hpRatio = static_cast<float>(curHealth) / maxHealth;
-	// Ã¼·Â 50% ÀÌÇÏ > Ã¼·Â ¹°¾à
-	if (hpRatio <= 0.5f)
-	{
-		if (Player::UseItem(ItemType::HealthPotion))
-		{
-			return true;
-		}
-	}
-	// Ã¼·Â 80% ÀÌÇÏ > °ø°Ý·Â ¹°¾à
-	if (hpRatio <= 0.8f)
-	{
-		if (Player::UseItem(ItemType::AttackPotion))
-		{
-			return true;
-		}
-	}
-	return false;
+void Player::UseItem(int index) {
+    inventory.UseItem(index, *this);
 }
 
-void Player::AddItem(Item* item)
-{
-	inventory.push_back(item);
+void Player::RestoreHP(int amt) {
+    curHealth = min(curHealth + amt, maxHealth);
+    cout << playerName << " ì²´ë ¥ +" << amt << endl;
 }
 
-
-// ============================ ¾ÆÀÌÅÛ »ç¿ë À§ÇÑ Ãß°¡ ÇÔ¼ö ===================================== //
-void Player::healthRestore(int restore)
-{
-	curHealth += restore;
-	if (curHealth > maxHealth)
-	{
-		curHealth = maxHealth;
-	}
+void Player::IncreaseATK(int amt) {
+    attack += amt;
+    cout << playerName << " ê³µê²©ë ¥ " << (amt >= 0 ? "+" : "") << amt << endl;
 }
 
-void Player::IncreaseATK(int bonusATK)
-{
-	bonusAttack += bonusATK;
+void Player::Equip(ItemBase* item) {
+    if (!item) return;
+
+    auto* eq = dynamic_cast<Equipable*>(item);
+    if (!eq) return;
+
+    if (equippedWeapon) UnequipWeapon();
+
+    equippedWeapon = item;
+    IncreaseATK(eq->getAttackBoost());
+
+    cout << eq->getName() << " ìž¥ì°©!\n";
 }
 
-void Player::clearAttackBuff() {
-	bonusAttack = 0;
+void Player::UnequipWeapon() {
+    if (!equippedWeapon) return;
+
+    auto* eq = dynamic_cast<Equipable*>(equippedWeapon);
+    if (eq) IncreaseATK(-eq->getAttackBoost());
+
+    equippedWeapon = nullptr;
 }
-// ======================================================================================= //
+
+ItemBase* Player::getEquippedWeapon() const { return equippedWeapon; }

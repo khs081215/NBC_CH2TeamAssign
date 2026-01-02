@@ -1,4 +1,3 @@
-// main.cpp
 #define WIN32_LEAN_AND_MEAN
 #include <windows.h>
 #undef byte
@@ -7,24 +6,25 @@
 #include <conio.h>
 #include <memory>
 
+#include "QuestManager.h"
+#include "QuestFactory.h"
+#include "QuestUI.h"
 #include "Player.h"
 #include "Inventory.h"
-#include "Store.h"
-#include "StoreUI.h"
 #include "ItemBase.h"
-#include "QuestManager.h"
-#include "QuestUI.h"
-#include "UI.h"
 
 using namespace std;
 
-// ===== 테스트용 몬스터 드랍 (상점 첫 번째 아이템) =====
-std::unique_ptr<ItemBase> GetMonsterDrop(Store& store)
-{
-    const auto& storeItems = store.getStore();
-    if (storeItems.empty()) return nullptr;
-    return storeItems[0]->clone();
+QuestManager gQuestManager;
+Player gPlayer("플레이어");
+Inventory gInventory;
+
+void DrawMainUI() {
+    system("cls");
+    cout << "I: 인벤토리 | Q: 퀘스트 | K: slay monster | ESC: 종료\n";
 }
+
+
 
 void main_test_StoreQuestInventory_Integration()
 {
@@ -77,24 +77,23 @@ void main_test_StoreQuestInventory_Integration()
         {
             cout << "슬라임 처치!\n";
 
-            // 1️⃣ 퀘스트 이벤트 전달
+            // 퀘스트 이벤트 전달
             questManager.Notify({
                 QuestEventType::KillMonster,
                 "슬라임",
                 1
-                });
+            });
 
-            // 2️⃣ 퀘스트 완료 직접 확인 & 팝업
+            // 퀘스트 완료 확인 & 팝업
             for (auto& q : questManager.GetActiveQuests()) {
                 if (q->IsCompleted() && !q->IsRewardGiven()) {
                     ShowQuestCompletePopup(q->GetStatusText());
-                    // 보상 지급
                     q->GiveReward(player.GetInventory());
                     q->MarkRewardGiven();
                 }
             }
 
-            // 3️⃣ 드랍 아이템
+            // 드랍 아이템
             auto drop = GetMonsterDrop(store);
             if (drop) {
                 player.GetInventory().AddItem(std::move(drop));
@@ -111,6 +110,6 @@ void main_test_StoreQuestInventory_Integration()
             break;
         }
     }
-
-    return 0;
 }
+
+

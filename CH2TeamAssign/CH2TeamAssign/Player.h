@@ -1,62 +1,66 @@
 #pragma once
-#ifndef Player_H_
-#define Player_H_
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#undef byte
 
-#include <iostream>
 #include <string>
-#include <vector>
-#include "ItemType.h"
+#include "Inventory.h"
 
+class ItemBase;
 class Monster;
-class Item;
 
-class Player
-{
+class Player {
+private:
+    Inventory inventory;
+    ItemBase* equippedWeapon = nullptr;
+
 protected:
-	std::string playerName;
-	int level;
-	int curHealth;
-	int maxHealth;
-	int attack;
-	int experience;
-	int gold;
-	std::vector<Item*> inventory;
-	int bonusAttack = 0;
+    std::string playerName;
+    int level = 1;
+    int curHealth = 100;
+    int maxHealth = 100;
+    int attack = 10;
+    int experience = 0;
+    int gold = 0;
 
 public:
-	Player(const std::string& playerName);
-	~Player();
+    Player(const std::string& name);
+    ~Player();
 
-	void Attack(Monster* monster);  // 몬스터 공격(생사여부)
-	void PrintStatus();             // 플레이어 상태창
-	bool UseItem(ItemType type);    // 아이템 사용 함수
-	bool ItemAutoUse();		        // 아이템 자동 사용 함수
-	void AddItem(Item* item);       // 아이템 사용
-	void LevelUP();                 // 레벨업
+    // ===== Getter =====
+    const std::string& getplayerName() const;
+    int getlevel() const;
+    int getcurHealth() const;
+    int getmaxHealth() const;
+    int getattack() const;
+    int getexperience() const;
+    int getgold() const;
+    int& getGoldRef();
 
-	const std::string& getplayerName() const;
-	int getlevel() const;
-	int getcurHealth() const;
-	int getmaxHealth();
-	int getattack() const;
-	int getexperience();
-	int getgold();
+    // ===== Setter =====
+    void setplayerName(const std::string& name);
+    void setlevel(int level);
+    bool setcurHealth(int hp);
+    void setattack(int atk);
+    void setexperience(int exp);
+    void setgold(int g);
 
-	void setplayerName(const std::string& playerName);
-	void setlevel(int level);
-	bool setcurHealth(int curHealth);
-	void setattack(int attack);
-	void setexperience(int experience);
-	void setgold(int gold);
+    // ===== Gameplay =====
+    void PrintStatus();
+    void LevelUP();
+    void Attack(Monster* monster);
 
-	// ======================== 아이템 사용 위한 추가 멤버 함수 =================== //
-	void healthRestore(int restore);
-	void IncreaseATK(int bonusAttack);
-	void clearAttackBuff();
-	// ==================================================================== //
+    // ===== Inventory bridge =====
+    Inventory& GetInventory() { return inventory; }
+    const Inventory& GetInventory() const { return inventory; }
+    void UseItem(int index);   // inventory.UseItem 위임
 
+    // ===== Status effect =====
+    void RestoreHP(int amount);
+    void IncreaseATK(int amount);
+
+    // ===== Equipment =====
+    void Equip(ItemBase* item);
+    void UnequipWeapon();
+    ItemBase* getEquippedWeapon() const;
 };
-
-#endif
-
-
