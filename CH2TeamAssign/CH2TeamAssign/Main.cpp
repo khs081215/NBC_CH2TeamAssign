@@ -15,7 +15,7 @@ using namespace std;
 #include "Troll.h"
 
 int main() {
-    //슬라임, 고블린 정보 불러오기
+    //슬라임, 고블린, 오크, 트롤 정보 불러오기
     Monster* s = new Slime();
     Monster* g = new Goblin();
     Monster* o = new Orc();
