@@ -8,18 +8,13 @@ using namespace std;
 Player::Player(const string& playerName)
 	: playerName(playerName), level(1), curHealth(200), maxHealth(200), attack(30), experience(0), gold(0) {
 }
-Player ::~Player()
-{
-	for (Item* item : inventory)
-	{
-		delete item;
-	}
-}
+Player ::~Player() = default;	 // ì¸ë²¤í† ë¦¬ unique_ptr ì“°ë©´ì„œ ìˆ˜ì •
+
 const string& Player::getplayerName() const { return playerName; }
 int Player::getlevel() const { return level; }
 int Player::getcurHealth() const { return curHealth; }
 int Player::getmaxHealth() { return maxHealth; }
-int Player::getattack() const { return attack + bonusAttack; }		// ¹°¾àÀ¸·Î ¾ò´Â Ãß°¡ °ø°İ·Â±îÁö ÇÔ²² ¹İÈ¯ Ãß°¡
+int Player::getattack() const { return attack + bonusAttack; }		// ë¬¼ì•½ìœ¼ë¡œ ì–»ëŠ” ì¶”ê°€ ê³µê²©ë ¥ê¹Œì§€ í•¨ê»˜ ë°˜í™˜
 int Player::getexperience() { return experience; }
 int Player::getgold() { return gold; }
 
@@ -75,10 +70,10 @@ void Player::setgold(int gold)
 
 void Player::PrintStatus()
 {
-	cout << "[  " << playerName << "´ÔÀÇ ½ºÅÈ Ã¢  ]" << endl;
-	cout << "Level : " << level << " | " << "ÇöÀç Ã¼·Â : " << curHealth << " | "
-		<< "°ø°İ·Â : " << attack << " | " << "ÇöÀç °æÇèÄ¡ : " << experience << " | "
-		<< "ÇöÀç °ñµå¾ç : " << gold << " | " << "ÇöÀç °æÇèÄ¡ : " << experience << " /100" << endl;
+	cout << "[  " << playerName << "ë‹˜ì˜ ìŠ¤íƒ¯ ì°½  ]" << endl;
+	cout << "Level : " << level << " | " << "í˜„ì¬ ì²´ë ¥ : " << curHealth << " | "
+		<< "ê³µê²©ë ¥ : " << attack << " | " << "í˜„ì¬ ê²½í—˜ì¹˜ : " << experience << " | "
+		<< "í˜„ì¬ ê³¨ë“œì–‘ : " << gold << " | " << "í˜„ì¬ ê²½í—˜ì¹˜ : " << experience << " /100" << endl;
 }
 void Player::LevelUP()
 {
@@ -86,7 +81,7 @@ void Player::LevelUP()
 	{
 		return;
 	}
-	cout << "·¹º§¾÷ ÇÏ¿´½À´Ï´Ù\n";
+	cout << "ë ˆë²¨ì—… í•˜ì˜€ìŠµë‹ˆë‹¤\n";
 	level++;
 	maxHealth += level * 20;
 	attack += level * 5;
@@ -94,7 +89,7 @@ void Player::LevelUP()
 }
 void Player::Attack(Monster* monster)
 {
-	bool isAlive = monster->SetHP(monster->getcurHealth() - (attack + bonusAttack));		// ¹°¾à »ç¿ëÀ¸·Î ÀÎÇÑ Ãß°¡ °ø°İ·Â±îÁö ¹İ¿µµÈ µ¥¹ÌÁö °è»ê
+	bool isAlive = monster->SetHP(monster->getcurHealth() - (attack + bonusAttack));		// ë¬¼ì•½ ì‚¬ìš©ìœ¼ë¡œ ì¸í•œ ì¶”ê°€ ê³µê²©ë ¥ê¹Œì§€ ë°˜ì˜ëœ ë°ë¯¸ì§€ ê³„ì‚°
 }
 
 bool Player::UseItem(ItemType type)
@@ -104,7 +99,6 @@ bool Player::UseItem(ItemType type)
 		if ((*it)->GetItemType() == type)
 		{
 			(*it)->Use(*this);
-			delete* it;
 			inventory.erase(it);
 			return true;
 		}
@@ -112,20 +106,20 @@ bool Player::UseItem(ItemType type)
 	return false;
 }
 
-// ¸ŞÀÎ¿¡¼­ °ø°İÀü¿¡ È£ÃâÇØÁÖ¸é µÊ
-// 1. ÀÎº¥Åä¸®°¡ ºñ¾ú´Ù¸é false ¹İÈ¯ > °ø°İ ·ÎÁ÷ È£Ãâ
-// 2. ¾ÆÀÌÅÛÀ» »ç¿ëÇß´Ù¸é true ¹İÈ¯ > ÅÏ Á¾·á
+// ë©”ì¸ì—ì„œ ê³µê²©ì „ì— í˜¸ì¶œí•´ì£¼ë©´ ë¨
+// 1. ì¸ë²¤í† ë¦¬ê°€ ë¹„ì—ˆë‹¤ë©´ false ë°˜í™˜ > ê³µê²© ë¡œì§ í˜¸ì¶œ
+// 2. ì•„ì´í…œì„ ì‚¬ìš©í–ˆë‹¤ë©´ true ë°˜í™˜ > í„´ ì¢…ë£Œ
 bool Player::ItemAutoUse()
 {
-	// ÀÎº¥Åä¸® ºñ¾î ÀÖÀ¸¸é Á¾·á
+	// ì¸ë²¤í† ë¦¬ ë¹„ì–´ ìˆìœ¼ë©´ ì¢…ë£Œ
 	if (inventory.empty())
 	{
-		cout << "ÀÎº¥Åä¸®°¡ ºñ¾ú½À´Ï´Ù." << endl;
+		cout << "ì¸ë²¤í† ë¦¬ê°€ ë¹„ì—ˆìŠµë‹ˆë‹¤." << endl;
 		return false;
 	}
 
 	const float hpRatio = static_cast<float>(curHealth) / maxHealth;
-	// Ã¼·Â 50% ÀÌÇÏ > Ã¼·Â ¹°¾à
+	// ì²´ë ¥ 50% ì´í•˜ > ì²´ë ¥ ë¬¼ì•½
 	if (hpRatio <= 0.5f)
 	{
 		if (Player::UseItem(ItemType::HealthPotion))
@@ -133,7 +127,7 @@ bool Player::ItemAutoUse()
 			return true;
 		}
 	}
-	// Ã¼·Â 80% ÀÌÇÏ > °ø°İ·Â ¹°¾à
+	// ì²´ë ¥ 80% ì´í•˜ > ê³µê²©ë ¥ ë¬¼ì•½
 	if (hpRatio <= 0.8f)
 	{
 		if (Player::UseItem(ItemType::AttackPotion))
@@ -144,13 +138,13 @@ bool Player::ItemAutoUse()
 	return false;
 }
 
-void Player::AddItem(Item* item)
+// ì¸ë²¤í† ë¦¬ unique_ptr ì“°ë©´ì„œ ìˆ˜ì •
+void Player::AddItem(unique_ptr<Item> item)
 {
-	inventory.push_back(item);
+	inventory.push_back(move(item));
 }
 
-
-// ============================ ¾ÆÀÌÅÛ »ç¿ë À§ÇÑ Ãß°¡ ÇÔ¼ö ===================================== //
+// ============================ ì•„ì´í…œ ì‚¬ìš© ìœ„í•œ ì¶”ê°€ í•¨ìˆ˜ ===================================== //
 void Player::healthRestore(int restore)
 {
 	curHealth += restore;

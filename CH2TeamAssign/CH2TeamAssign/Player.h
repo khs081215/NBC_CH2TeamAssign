@@ -20,7 +20,7 @@ protected:
 	int attack;
 	int experience;
 	int gold;
-	std::vector<Item*> inventory;
+	std::vector<std::unique_ptr<Item>> inventory;	 // 인벤토리 unique_ptr 쓰면서 수정
 	int bonusAttack = 0;
 
 public:
@@ -28,10 +28,10 @@ public:
 	~Player();
 
 	void Attack(Monster* monster);  // 몬스터 공격(생사여부)
-	void PrintStatus();             // 플레이어 상태창
+	void PrintStatus();			 // 플레이어 상태창
 	bool UseItem(ItemType type);    // 아이템 사용 함수
 	bool ItemAutoUse();		        // 아이템 자동 사용 함수
-	void AddItem(Item* item);       // 아이템 사용
+	void AddItem(std::unique_ptr<Item> item);	 // 인벤토리 unique_ptr 쓰면서 수정
 	void LevelUP();                 // 레벨업
 
 	const std::string& getplayerName() const;
