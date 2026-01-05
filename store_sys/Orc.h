@@ -11,6 +11,7 @@ public:
 
 private:
     void Shout();
+    void display();
 };
 
 #endif

@@ -8,6 +8,7 @@ class Slime : public Monster {
 public:
 
     Slime(int playerLevel);
+    void display();
 };
 
 #endif

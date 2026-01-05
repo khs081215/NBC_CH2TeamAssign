@@ -44,7 +44,7 @@ void Inventory::UseItem(int index, Player& player) {
     if (item->getQuantity() <= 0) {
         items.erase(items.begin() + index);
         if (items.empty()) {
-            cout << "\n인벤토리가 비었습니다.\n";
+            //cout << "\n인벤토리가 비었습니다.\n";
         }
     }
 }
@@ -64,7 +64,7 @@ void Inventory::ShowInventoryUI(Player& player) const {
     cout << "\n=== INVENTORY ===\n";
 
     if (items.empty()) {
-        cout << "인벤토리가 비어 있습니다.\n";
+        //cout << "인벤토리가 비어 있습니다.\n";
         return;
     }
 

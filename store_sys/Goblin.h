@@ -7,6 +7,7 @@
 class Goblin : public Monster {
 public:
     Goblin(int playerLevel);
+    void display();
 };
 
 #endif

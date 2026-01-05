@@ -82,8 +82,10 @@ void Player::LevelUP() {
 
     cout << "레벨업!\n";
     level++;
-    maxHealth += level * 20;
-    attack += level * 5;
+    //maxHealth += level * 20;
+    //attack += level * 5;
+    maxHealth += 20;
+    attack += 5;
     curHealth = maxHealth;
 }
 
@@ -122,7 +124,6 @@ bool Player::ItemAutoUse()
 {
     if (inventory.empty())
     {
-        cout << "인벤토리가 비었습니다.\n";
         return false;
     }
 
@@ -139,7 +140,6 @@ bool Player::ItemAutoUse()
             if (item->GetItemType() == ItemType::HealthPotion)
             {
                 inventory.UseItem(i, *this);
-                cout << "HP 포션 자동 사용\n";
                 return true;
             }
         }
@@ -156,7 +156,6 @@ bool Player::ItemAutoUse()
             if (item->GetItemType() == ItemType::AttackPotion)
             {
                 inventory.UseItem(i, *this);
-                cout << "공격 포션 자동 사용\n";
                 return true;
             }
         }

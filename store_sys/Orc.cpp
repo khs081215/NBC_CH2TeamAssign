@@ -8,3 +8,17 @@ Orc::Orc(int PlayerLevel) : Monster(PlayerLevel,"Orc") {}
 void Orc::Shout() {
     std::cout << "오크가 포효합니다!" << std::endl;
 }
+
+void Orc::display()
+{
+    char print_temp[256];
+    FILE* fp;
+    errno_t err = fopen_s(&fp, "Orc.tmg", "rt");
+    system("mode con cols=80");
+
+    if (err != 0)return;
+    while (fgets(print_temp, 255, fp) != NULL) {
+        cout << print_temp;
+    }
+    fclose(fp);
+}
