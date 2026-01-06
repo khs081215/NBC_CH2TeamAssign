@@ -205,6 +205,10 @@ int main()
         ", 체력: " + to_string(myPlayer.getcurHealth()) +
         ", 공격력: " + to_string(myPlayer.getattack()));
     cout << COLOR_RESET;
+
+    printonebyone::print("아무 키나 입력해주세요.\n");
+    _getch();
+
     srand((unsigned int)time(nullptr));
 
     // ==============================
