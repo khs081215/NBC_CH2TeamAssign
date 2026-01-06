@@ -42,7 +42,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
-    <PlatformToolset>v145</PlatformToolset>
+    <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AttackBoost.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="City.cpp" />
     <ClCompile Include="CityData.cpp" />
     <ClCompile Include="Consumable.cpp" />
@@ -152,6 +153,8 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="printasciipicture.cpp" />
+    <ClCompile Include="printonebyone.cpp" />
     <ClCompile Include="QuestDatabase.cpp" />
     <ClCompile Include="QuestFactory.cpp" />
     <ClCompile Include="SimpleQuest.cpp" />
@@ -167,6 +170,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackBoost.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="City.h" />
     <ClInclude Include="CityData.h" />
     <ClInclude Include="GameManager.h" />
@@ -185,6 +189,8 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Orc.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="printasciipicture.h" />
+    <ClInclude Include="printonebyone.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="QuestCondition.h" />
     <ClInclude Include="QuestData.h" />

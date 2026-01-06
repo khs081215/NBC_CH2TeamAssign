@@ -8,6 +8,7 @@
 class Troll : public Monster {
 public:
     Troll(int Playerlevel);
+    void display();
 
 };
 

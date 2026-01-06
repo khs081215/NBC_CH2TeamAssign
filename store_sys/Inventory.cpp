@@ -2,10 +2,12 @@
 #include "Inventory.h"
 #include "ItemBase.h"
 #include "Player.h"
+#include "printasciipicture.h"
 
 #include <iostream>
 #include <conio.h>
-
+#define COLOR_YELLOW "\033[33m"
+#define COLOR_RESET "\033[0m"
 using namespace std;
 
 void Inventory::AddItem(std::unique_ptr<ItemBase> item) {
@@ -44,7 +46,7 @@ void Inventory::UseItem(int index, Player& player) {
     if (item->getQuantity() <= 0) {
         items.erase(items.begin() + index);
         if (items.empty()) {
-            cout << "\n인벤토리가 비었습니다.\n";
+            //cout << "\n인벤토리가 비었습니다.\n";
         }
     }
 }
@@ -54,6 +56,9 @@ void Inventory::UseItem(int index, Player& player) {
 // ===== 안전한 UI =====
 void Inventory::ShowInventoryUI(Player& player) const {
     system("cls");
+    cout << COLOR_YELLOW;
+    printasciipicture::print("Status.tmg");
+    cout << COLOR_RESET;
 
     cout << "=== PLAYER STATUS ===\n";
     cout << "레벨: " << player.getlevel() << "\n";
@@ -64,7 +69,7 @@ void Inventory::ShowInventoryUI(Player& player) const {
     cout << "\n=== INVENTORY ===\n";
 
     if (items.empty()) {
-        cout << "인벤토리가 비어 있습니다.\n";
+        //cout << "인벤토리가 비어 있습니다.\n";
         return;
     }
 

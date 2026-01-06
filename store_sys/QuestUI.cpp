@@ -7,9 +7,12 @@
 #include "QuestManager.h"
 #include "QuestFactory.h"
 #include "QuestDatabase.h"
+#include "printasciipicture.h"
 
 #include <iostream>
 #include <conio.h>
+#define COLOR_BLUE "\033[34m"
+#define COLOR_RESET "\033[0m"
 
 using namespace std;
 
@@ -19,6 +22,10 @@ void OpenQuestUI(QuestManager& questMgr)
 
     while (true) {
         system("cls");
+        cout << COLOR_BLUE;
+        printasciipicture::print("Quest.tmg");
+        cout << COLOR_RESET;
+
         cout << "===== QUEST =====\n\n";
 
         /* =========================
