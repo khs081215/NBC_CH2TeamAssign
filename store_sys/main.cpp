@@ -95,14 +95,16 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
             1
             });
 
-        int getgold = rand() % 11 + 10;
-        myPlayer.setexperience(50);
-        myPlayer.setgold(myPlayer.getgold() + getgold);
-
         killedmonster.push_back(
             "LV" + to_string(myPlayer.getlevel()) +
             spawnedMonster->GetName()
         );
+
+        int getgold = rand() % 11 + 10;
+        myPlayer.setexperience(50);
+        myPlayer.setgold(myPlayer.getgold() + getgold);
+
+
 
         printonebyone::print("EXP +50, Gold +"+ to_string(getgold)+"\n");
 
