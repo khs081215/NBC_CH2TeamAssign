@@ -194,7 +194,7 @@ int main()
         characterName = GetUTFInput();
             
         if (!characterName.empty()) break;
-        printonebyone::print("캐릭터 이름은 공백이 될 수 없습니다. 다시 입력해주세요\n");
+        printonebyone::print("\n캐릭터 이름은 공백이 될 수 없습니다. 다시 입력해주세요\n");
     }
 
     Player myPlayer(characterName);
