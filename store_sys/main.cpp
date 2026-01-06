@@ -109,7 +109,7 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
         // ===== 아이템 드랍 =====
         int randitemnum = rand() % 100;
 
-        if (randitemnum < 50)
+        if (randitemnum < 15)
         {
             myPlayer.GetInventory().AddItem(
                 std::make_unique<ItemAdapter>(new HealthPotion())
@@ -118,7 +118,7 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
             printonebyone::print("HP 포션 획득!\n");
             cout << COLOR_RESET;
         }
-        else if (randitemnum < 100)
+        else if (randitemnum < 30)
         {
             myPlayer.GetInventory().AddItem(
                 std::make_unique<ItemAdapter>(new AttackBoost())
