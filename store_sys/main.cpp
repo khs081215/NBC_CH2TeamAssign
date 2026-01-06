@@ -29,6 +29,21 @@
 #include "QuestUI.h"
 #include "UI.h"
 #include "Boss.h"
+#include "printonebyone.h"
+#include "printasciipicture.h"
+
+#define COLOR_RED "\033[31m"
+#define COLOR_GREEN "\033[32m"
+#define COLOR_YELLOW "\033[33m"
+#define COLOR_BLUE "\033[34m"
+#define COLOR_PURPLE "\033[35m"
+#define COLOR_REV_PURPLE "\033[45m"
+#define COLOR_REV_YELLOW "\033[43m"
+#define COLOR_REV_BLUE "\033[44m"
+#define COLOR_REV_RED "\033[41m"
+#define COLOR_REV_WHITE "\033[47m"
+#define COLOR_RESET "\033[0m"
+
 
 using namespace std;
 
@@ -68,8 +83,10 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
     {
         myPlayer.Attack(spawnedMonster.get());
 
-        cout << myPlayer.getplayerName() << "가 "
-            << spawnedMonster->GetName() << "을 처치했습니다!\n";
+        cout << COLOR_YELLOW;
+        printonebyone::print(myPlayer.getplayerName() + "가 "
+            + spawnedMonster->GetName() + "을 처치했습니다!\n");
+        cout << COLOR_RESET;
 
         // ===== 퀘스트 이벤트 =====
         questManager.Notify({
@@ -87,24 +104,28 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
             spawnedMonster->GetName()
         );
 
-        cout << "EXP +50, Gold +" << getgold << endl;
+        printonebyone::print("EXP +50, Gold +"+ to_string(getgold)+"\n");
 
         // ===== 아이템 드랍 =====
         int randitemnum = rand() % 100;
 
-        if (randitemnum < 15)
+        if (randitemnum < 50)
         {
             myPlayer.GetInventory().AddItem(
                 std::make_unique<ItemAdapter>(new HealthPotion())
             );
-            cout << "HP 포션 획득!\n";
+            cout << COLOR_BLUE;
+            printonebyone::print("HP 포션 획득!\n");
+            cout << COLOR_RESET;
         }
-        else if (randitemnum < 30)
+        else if (randitemnum < 100)
         {
             myPlayer.GetInventory().AddItem(
                 std::make_unique<ItemAdapter>(new AttackBoost())
             );
-            cout << "공격 포션 획득!\n";
+            cout << COLOR_BLUE;
+            printonebyone::print("공격 포션 획득!\n");
+            cout << COLOR_RESET;
         }
 
         return true;
@@ -112,15 +133,20 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
 
     // 플레이어 공격
     myPlayer.Attack(spawnedMonster.get());
-    cout << myPlayer.getplayerName() << " 공격 → "
-        << spawnedMonster->GetName()
-        << " HP: " << spawnedMonster->getcurHealth() << endl;
+    printonebyone::print(myPlayer.getplayerName() + " 공격 → "
+        + spawnedMonster->GetName()
+        + " HP: " +to_string( spawnedMonster->getcurHealth()) +"\n");
 
     // 플레이어 사망 체크
     if (myPlayer.getcurHealth() <= spawnedMonster->GetAttack())
     {
         myPlayer.setcurHealth(0);
-        cout << myPlayer.getplayerName() << " 사망! 게임 오버\n";
+        cout << COLOR_RESET;
+        cout << COLOR_RED;
+        printonebyone::print(myPlayer.getplayerName()+ " 사망! 게임 오버\n");
+        cout << COLOR_RESET;
+        printonebyone::print("아무 키나 입력해주세요.\n");
+        _getch();
         return true;
     }
 
@@ -129,9 +155,9 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
         myPlayer.getcurHealth() - spawnedMonster->GetAttack()
     );
 
-    cout << spawnedMonster->GetName()
-        << " 공격 → 플레이어 HP: "
-        << myPlayer.getcurHealth() << endl << endl;
+    printonebyone::print(spawnedMonster->GetName()
+        + " 공격 → "+myPlayer.getplayerName()+ "HP: "
+        + to_string(myPlayer.getcurHealth()) +"\n\n");
     return false;
 }
 
@@ -149,20 +175,28 @@ int main()
     // ===== 캐릭터 생성 =====
     while (true)
     {
-        cout << "캐릭터 이름을 입력하세요\n";
+        //시작 이미지 생성
+        cout << COLOR_BLUE;
+        printasciipicture::print("Start.tmg");
+        cout << COLOR_RESET;
+        cout << COLOR_YELLOW;
+        printonebyone::print("캐릭터 이름을 입력하세요\n");
+        cout << COLOR_RESET;
+
         characterName = GetUTFInput();
             
         if (!characterName.empty()) break;
-        cout << "캐릭터 이름은 공백이 될 수 없습니다. 다시 입력해주세요\n";
+        printonebyone::print("캐릭터 이름은 공백이 될 수 없습니다. 다시 입력해주세요\n");
     }
 
     Player myPlayer(characterName);
 
-    cout << "캐릭터 " << characterName
-        << " 생성 완료! 레벨: " << myPlayer.getlevel()
-        << ", 체력: " << myPlayer.getcurHealth()
-        << ", 공격력: " << myPlayer.getattack() << endl << endl;
-
+    cout<<COLOR_YELLOW;
+    printonebyone::print("캐릭터 " + characterName +
+        " 생성 완료! 레벨: " + to_string(myPlayer.getlevel()) +
+        ", 체력: " + to_string(myPlayer.getcurHealth()) +
+        ", 공격력: " + to_string(myPlayer.getattack()));
+    cout << COLOR_RESET;
     srand((unsigned int)time(nullptr));
 
     // ==============================
@@ -188,13 +222,16 @@ int main()
         case 3: spawnedMonster = make_unique<Slime>(myPlayer.getlevel()); break;
         }
         spawnedMonster->display();
+        cout << COLOR_RED;
         spawnedMonster->showInfo();
+        cout << COLOR_RESET;
 
         // ===== 전투 루프 =====
         while (true)
         {
             if (battle(myPlayer, spawnedMonster, questManager, killedmonster)) break;
         }
+        myPlayer.ClearAttackBuff();
         spawnedMonster.reset();
         if (myPlayer.getcurHealth() == 0) break;
 
@@ -203,50 +240,61 @@ int main()
 
         while (!nextBattle)
         {
-            cout << "\n===== 전투 후 메뉴 =====\n";
-            cout << "I: 인벤토리 | Q: 퀘스트 | S: 상점 | P: 상태 | N: 다음 전투\n";
-            cout << "선택: ";
+            cout << COLOR_YELLOW;
+            printonebyone::print("\n===== 전투 후 메뉴 =====\n");
+            printonebyone::print("I: 인벤토리 | Q: 퀘스트 | S: 상점 | P: 상태 | N: 다음 전투\n");
+            cout << COLOR_RESET;
 
-            char cmd;
-            cin >> cmd;
-            cmd = toupper(cmd);
+            int cmd = _getch();
 
             system("cls");
+            if (cmd != 0) {
+                switch (cmd)
+                {
+                case 'I':
+                case 'i':
+                    myPlayer.GetInventory().ShowInventoryUI(myPlayer);
+                    break;
 
-            switch (cmd)
-            {
-            case 'I':
-                myPlayer.GetInventory().ShowInventoryUI(myPlayer);
-                break;
+                case 'Q':
+                case 'q':
+                    OpenQuestUI(questManager);
+                    break;
 
-            case 'Q':
-                OpenQuestUI(questManager);
-                break;
+                case 'S':
+                case 's':
+                {
+                    StoreUI ui(
+                        store,
+                        myPlayer,
+                        myPlayer.GetInventory(),
+                        myPlayer.getGoldRef()
+                    );
+                    ui.run();
+                    DrawMainUI();
+                    break;
+                }
 
-            case 'S':
-            {
-                StoreUI ui(
-                    store,
-                    myPlayer,
-                    myPlayer.GetInventory(),
-                    myPlayer.getGoldRef()
-                );
-                ui.run();
-                DrawMainUI();
-                break;
-            }
+                case 'P':
+                case 'p':
+                    cout << COLOR_YELLOW;
+                    printasciipicture::print("Status.tmg");
+                    cout << COLOR_RESET;
+                    myPlayer.PrintStatus();
+                    break;
 
-            case 'P':
-                myPlayer.PrintStatus();
-                break;
+                case 'N':
+                case 'n':
+                    nextBattle = true;
+                    break;
 
-            case 'N':
-                nextBattle = true;
-                break;
-
-            default:
-                cout << "잘못된 입력입니다.\n";
-                break;
+                default:
+                    cout << COLOR_YELLOW;
+                    printonebyone::print("잘못된 입력입니다.\n");
+                    cout << COLOR_RESET;
+                    cmd = 0;
+                    break;
+                }
             }
         }
 
@@ -261,20 +309,48 @@ int main()
 
         while (true)
         {
+            cout << COLOR_REV_RED;
             if (battle(myPlayer, spawnedMonster, questManager, killedmonster)) break;
         }
+        printonebyone::print("아무 키나 입력해주세요.\n");
+        _getch();
+
+
+
+
         if (myPlayer.getcurHealth() != 0)
         {
-            cout << "위대한 보스를 물리쳤습니다!!!" << endl;
+            system("cls");
+            cout << COLOR_YELLOW;
+            printasciipicture::print("Victory.tmg");
+            cout << COLOR_RESET;
+            cout << COLOR_REV_PURPLE;
+            printonebyone::print( "\n\n위대한 보스를 물리쳤습니다!!!\n\n" );
+            cout << COLOR_RESET;
+            cout << COLOR_REV_YELLOW;
+            printonebyone::print("\n\n\n잡은 몬스터:\n");
+            for (auto& m : killedmonster)
+                printonebyone::print(m + "\n");
+            cout << endl;
+            cout << COLOR_RESET;
         }
-
-
-
-        cout << "잡은 몬스터: ";
-        for (auto& m : killedmonster)
-            cout << m << " ";
-        cout << endl;
     }
+
+
+    if (myPlayer.getcurHealth() == 0)
+    {
+        system("cls");
+        cout << COLOR_RED;
+        printasciipicture::print("Died.tmg");
+        cout << COLOR_RESET;
+        cout << COLOR_REV_YELLOW;
+        printonebyone::print("\n\n\n잡은 몬스터:\n");
+        for (auto& m : killedmonster)
+            printonebyone::print(m + "\n");
+        cout << endl;
+        cout << COLOR_RESET;
+    }
+
 
     return 0;
 }

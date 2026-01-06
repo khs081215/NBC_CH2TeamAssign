@@ -9,6 +9,10 @@
 
 #include <iostream>
 #include <algorithm>
+#define COLOR_YELLOW "\033[33m"
+#define COLOR_PURPLE "\033[35m"
+#define COLOR_RESET "\033[0m"
+#define COLOR_REV_BLUE "\033[44m"
 using namespace std;
 
 Player::Player(const string& name)
@@ -67,7 +71,9 @@ void Player::setgold(int g) { gold = g; }
 
 // ================= Status =================
 void Player::PrintStatus() {
+    cout << COLOR_YELLOW;
     cout << "[ " << playerName << " 상태 ]\n";
+    cout << COLOR_RESET;
     cout << "LV " << level
         << " | HP " << curHealth << "/" << maxHealth
         << " | ATK " << attack << " (+" << bonusAttack << ")"
@@ -79,8 +85,9 @@ void Player::PrintStatus() {
 // ================= Level =================
 void Player::LevelUP() {
     if (level >= 10) return;
-
+    cout << COLOR_PURPLE;
     cout << "레벨업!\n";
+    cout << COLOR_RESET;
     level++;
     //maxHealth += level * 20;
     //attack += level * 5;
@@ -105,13 +112,10 @@ void Player::UseItem(int index) {
 
 void Player::RestoreHP(int amt) {
     curHealth = min(curHealth + amt, maxHealth);
-    cout << playerName << " 체력 +" << amt << endl;
 }
 
 void Player::IncreaseATK(int amt) {
     bonusAttack += amt;
-    cout << playerName << " 공격력 버프 "
-        << (amt >= 0 ? "+" : "") << amt << endl;
 }
 
 void Player::ClearAttackBuff() {
@@ -139,7 +143,9 @@ bool Player::ItemAutoUse()
 
             if (item->GetItemType() == ItemType::HealthPotion)
             {
+                cout << COLOR_REV_BLUE;
                 inventory.UseItem(i, *this);
+                cout << COLOR_RESET;
                 return true;
             }
         }
@@ -155,7 +161,9 @@ bool Player::ItemAutoUse()
 
             if (item->GetItemType() == ItemType::AttackPotion)
             {
+                cout << COLOR_REV_BLUE;
                 inventory.UseItem(i, *this);
+                cout << COLOR_RESET;
                 return true;
             }
         }

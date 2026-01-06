@@ -2,10 +2,12 @@
 #include "Inventory.h"
 #include "ItemBase.h"
 #include "Player.h"
+#include "printasciipicture.h"
 
 #include <iostream>
 #include <conio.h>
-
+#define COLOR_YELLOW "\033[33m"
+#define COLOR_RESET "\033[0m"
 using namespace std;
 
 void Inventory::AddItem(std::unique_ptr<ItemBase> item) {
@@ -54,6 +56,9 @@ void Inventory::UseItem(int index, Player& player) {
 // ===== 안전한 UI =====
 void Inventory::ShowInventoryUI(Player& player) const {
     system("cls");
+    cout << COLOR_YELLOW;
+    printasciipicture::print("Status.tmg");
+    cout << COLOR_RESET;
 
     cout << "=== PLAYER STATUS ===\n";
     cout << "레벨: " << player.getlevel() << "\n";

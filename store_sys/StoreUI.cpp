@@ -6,6 +6,7 @@
 #include "StoreUI.h"
 #include "ItemBase.h"
 #include "MerchantLines.h"
+#include "printasciipicture.h"
 
 #include <conio.h>
 #include <iostream>
@@ -32,6 +33,7 @@ StoreUI::StoreUI(Store& s, Player& p, Inventory& inv, int& g)
     noGoldLines = MerchantLines::noGoldLines;
     newStockLines = MerchantLines::newStockLines;
 
+    
     merchantSpeak("어서오세요! 천천히 둘러보세요~");
 }
 
@@ -39,6 +41,7 @@ StoreUI::StoreUI(Store& s, Player& p, Inventory& inv, int& g)
 // NPC 대사 출력
 void StoreUI::merchantSpeak(const std::string& msg) {
     system("cls");
+    printasciipicture::print("Store.tmg");
     std::cout << store.getOwnerName() << ": ";
 
     for (char c : msg) {

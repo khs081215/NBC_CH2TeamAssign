@@ -153,6 +153,8 @@
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Orc.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="printasciipicture.cpp" />
+    <ClCompile Include="printonebyone.cpp" />
     <ClCompile Include="QuestDatabase.cpp" />
     <ClCompile Include="QuestFactory.cpp" />
     <ClCompile Include="SimpleQuest.cpp" />
@@ -187,6 +189,8 @@
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Orc.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="printasciipicture.h" />
+    <ClInclude Include="printonebyone.h" />
     <ClInclude Include="Quest.h" />
     <ClInclude Include="QuestCondition.h" />
     <ClInclude Include="QuestData.h" />
