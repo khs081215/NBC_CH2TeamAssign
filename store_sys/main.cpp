@@ -78,6 +78,11 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
     myPlayer.ItemAutoUse();
     cout << endl;
 
+    if (myPlayer.getlevel() == 10)
+    {
+        cout << COLOR_REV_RED;
+    }
+
     // 몬스터 처치
     if (spawnedMonster->getcurHealth() <= myPlayer.getattack())
     {

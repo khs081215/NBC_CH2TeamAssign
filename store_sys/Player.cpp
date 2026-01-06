@@ -9,6 +9,7 @@
 
 #include <iostream>
 #include <algorithm>
+#define COLOR_RED "\033[31m"
 #define COLOR_YELLOW "\033[33m"
 #define COLOR_PURPLE "\033[35m"
 #define COLOR_RESET "\033[0m"
@@ -94,6 +95,13 @@ void Player::LevelUP() {
     maxHealth += 20;
     attack += 5;
     curHealth = maxHealth;
+    if (level == 10)
+    {
+        cout << COLOR_RED;
+        cout << "이제 일반 몬스터는 상대도 안 된다!\n";
+        cout << COLOR_RESET;
+    }
+
 }
 
 
