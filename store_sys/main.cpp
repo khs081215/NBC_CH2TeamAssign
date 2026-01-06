@@ -106,12 +106,15 @@ bool battle(Player& myPlayer, unique_ptr<Monster>& spawnedMonster, QuestManager&
         );
 
         int getgold = rand() % 11 + 10;
+
+        printonebyone::print("EXP +50, Gold +" + to_string(getgold) + "\n");
+
         myPlayer.setexperience(50);
         myPlayer.setgold(myPlayer.getgold() + getgold);
 
 
 
-        printonebyone::print("EXP +50, Gold +"+ to_string(getgold)+"\n");
+       
 
         // ===== 아이템 드랍 =====
         int randitemnum = rand() % 100;
@@ -206,7 +209,7 @@ int main()
         ", 공격력: " + to_string(myPlayer.getattack()));
     cout << COLOR_RESET;
 
-    printonebyone::print("아무 키나 입력해주세요.\n");
+    printonebyone::print("\n아무 키나 입력해주세요.\n");
     _getch();
 
     srand((unsigned int)time(nullptr));
