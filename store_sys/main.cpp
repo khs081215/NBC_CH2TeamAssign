@@ -180,6 +180,7 @@ int main()
         //시작 이미지 생성
         cout << COLOR_BLUE;
         printasciipicture::print("Start.tmg");
+        cout << "\n";
         cout << COLOR_RESET;
         cout << COLOR_YELLOW;
         printonebyone::print("캐릭터 이름을 입력하세요\n");
