@@ -21,7 +21,9 @@
 #include "Orc.h"
 #include "Troll.h"
 
-// ===== 네가 만든 시스템 =====
+#include "CityData.h"
+#include "CityUI.h"
+
 #include "Inventory.h"
 #include "Store.h"
 #include "StoreUI.h"
@@ -170,6 +172,8 @@ int main()
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 
+    auto cities = getCities();
+    int currentCityIndex = 0;
     string characterName;
     unique_ptr<Monster> spawnedMonster;
     vector<string> killedmonster;
@@ -244,7 +248,7 @@ int main()
         {
             cout << COLOR_YELLOW;
             printonebyone::print("\n===== 전투 후 메뉴 =====\n");
-            printonebyone::print("I: 인벤토리 | Q: 퀘스트 | S: 상점 | P: 상태 | N: 다음 전투\n");
+            printonebyone::print("I: 인벤토리 | Q: 퀘스트 | S: 상점 | C: 도시 이동| P: 상태 | N: 다음 전투\n");
             cout << COLOR_RESET;
 
             int cmd = _getch();
@@ -266,16 +270,16 @@ int main()
                 case 'S':
                 case 's':
                 {
-                    StoreUI ui(
-                        store,
+                    goToStore(
+                        cities[currentCityIndex],
                         myPlayer,
                         myPlayer.GetInventory(),
                         myPlayer.getGoldRef()
                     );
-                    ui.run();
                     DrawMainUI();
                     break;
                 }
+
 
                 case 'P':
                 case 'p':
@@ -289,6 +293,22 @@ int main()
                 case 'n':
                     nextBattle = true;
                     break;
+
+                case 'C':
+                case 'c':
+                {
+                    int newCity = selectCity(cities, currentCityIndex);
+                    if (newCity != currentCityIndex) {
+                        currentCityIndex = newCity;
+
+                        system("cls");
+                        std::cout << "📍 " << cities[currentCityIndex].name
+                            << " 에 도착했습니다!\n";
+                        _getch();
+                    }
+                    break;
+                }
+
 
                 default:
                     cout << COLOR_YELLOW;

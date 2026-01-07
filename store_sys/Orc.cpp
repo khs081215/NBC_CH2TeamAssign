@@ -5,7 +5,7 @@
 #define COLOR_RESET "\033[0m"
 
 // Orc 구현 체력 90, 공격력 50, 레벨 1 (예시)
-Orc::Orc(int PlayerLevel) : Monster(PlayerLevel,"Orc") {}
+Orc::Orc(int PlayerLevel) : Monster(PlayerLevel, "Orc") {}
 
 void Orc::Shout() {
     std::cout << "\n오크가 포효합니다!" << std::endl;

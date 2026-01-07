@@ -7,7 +7,7 @@
 #include "ItemBase.h"
 #include "MerchantLines.h"
 #include "printasciipicture.h"
-
+#include "ShopReviews.h"
 #include <conio.h>
 #include <iostream>
 #include <random>
@@ -35,6 +35,23 @@ StoreUI::StoreUI(Store& s, Player& p, Inventory& inv, int& g)
 
     
     merchantSpeak("어서오세요! 천천히 둘러보세요~");
+
+    //  여기부터 추가
+    system("cls");
+    printasciipicture::print("Store.tmg");
+
+    std::cout << "📢 손님 후기\n\n";
+    auto reviews = ShopReviews::getRandomReviews(
+        store.getShopType(),  // ← 이게 핵심
+        3
+    );
+
+    for (const auto& r : reviews) {
+        std::cout << "- " << r << "\n";
+    }
+
+    std::cout << "\n(Press any key to continue)";
+    _getch();
 }
 
 // ---------------------------

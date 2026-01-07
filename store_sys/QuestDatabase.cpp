@@ -1,42 +1,65 @@
-//QuestDatabase.cpp
+// QuestDatabase.cpp
 #include "QuestDatabase.h"
 
-#include "QuestDatabase.h"
+#include <fstream>
+#include <iostream>
+#include <vector>
+#include "json.hpp"
 
-static std::vector<QuestData> gQuests = {
+using json = nlohmann::json;
+
+static std::vector<QuestData> gQuests;
+
+static QuestType ParseQuestType(const std::string& type)
+{
+    if (type == "KillMonster")
+        return QuestType::KillMonster;
+
+    return QuestType::KillMonster;
+}
+
+static void LoadQuestsFromJson()
+{
+    if (!gQuests.empty())
+        return;
+
+    std::ifstream file("quests.json");
+    if (!file.is_open())
     {
-        1,
-        QuestType::KillMonster,
-        "Slime 5마리 처치",
-        "Slime",
-        5,
-        {} // 선행 없음
-    },
-    {
-        2,
-        QuestType::KillMonster,
-        "Goblin 10마리 처치",
-        "Goblin",
-        10,
-        { 1 } //  Quest 1 완료 필요
-    },
-    {
-        3,
-        QuestType::KillMonster,
-        " Orc 3마리 처치",
-        "Orc",
-        3,
-        { 2 } //  Quest 2 완료 필요
+        std::cerr << "Failed to open quests.json\n";
+        return;
     }
-};
 
+    json j;
+    file >> j;
 
-const QuestData* QuestDatabase::GetQuestById(int id) {
+    for (const auto& q : j["quests"])
+    {
+        QuestData data;
+        data.id = q["id"];
+        data.type = ParseQuestType(q["type"]);
+        data.title = q["title"];
+        data.target = q["target"];          
+        data.count = q["count"];            
+        data.prerequisites = q["prerequisites"].get<std::vector<int>>();
+
+        gQuests.push_back(data);
+    }
+}
+
+const QuestData* QuestDatabase::GetQuestById(int id)
+{
+    LoadQuestsFromJson();
+
     for (auto& q : gQuests)
-        if (q.id == id) return &q;
+        if (q.id == id)
+            return &q;
+
     return nullptr;
 }
 
-const std::vector<QuestData>& QuestDatabase::GetAllQuests() {
+const std::vector<QuestData>& QuestDatabase::GetAllQuests()
+{
+    LoadQuestsFromJson();
     return gQuests;
 }

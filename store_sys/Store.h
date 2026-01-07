@@ -27,6 +27,7 @@ public:
     int getDay() const;
     const Inventory& getStore() const;
     MerchantPersonality getPersonality() const;
+    ShopType getShopType() const { return type; }
     void restock();
     void nextDay();
 

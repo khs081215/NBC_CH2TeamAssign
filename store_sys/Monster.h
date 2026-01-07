@@ -31,7 +31,7 @@ public:
     int GetLevel()const { return Level; }
 
     void setAtk(int NewAtk);
-    virtual void display()=0;
+    virtual void display() = 0;
 };
 
 

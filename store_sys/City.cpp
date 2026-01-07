@@ -50,10 +50,12 @@ MerchantPersonality choosePersonality() {
 }
 
 // 상점 접근 함수
-void goToStore(const City& currentCity,
+void goToStore(
+    const City& currentCity,
     Player& player,
-    vector<unique_ptr<ItemBase>>& inventory,
+    Inventory& inventory,
     int& gold)
+
 {
     while (true) {
         int storeIdx = selectStore(currentCity);
