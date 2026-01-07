@@ -1,0 +1,18 @@
+[
+  {
+    "name": "Poseidon",
+    "description": "항구 도시, 바닷바람이 시원하다.",
+    "shops": [
+      { "name": "Danny's 게살버거", "type": "Food" },
+      { "name": "유나 상가", "type": "Equipment" }
+    ]
+  },
+  {
+    "name": "Verdantia",
+    "description": "숲이 우거진 도시, 약초 향이 가득하다.",
+    "shops": [
+      { "name": "산신령 약초방", "type": "Herbal" },
+      { "name": "엘레나 마켓", "type": "Food" }
+    ]
+  }
+]

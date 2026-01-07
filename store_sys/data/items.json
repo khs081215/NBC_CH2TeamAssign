@@ -1,0 +1,20 @@
+{
+  "items": [
+    {
+      "type": "Consumable",
+      "name": "kechup",
+      "desc": "극심한 HP 회복",
+      "price": 100,
+      "restore": 50,
+      "category": "General"
+    },
+    {
+      "type": "Equipable",
+      "name": "포크",
+      "desc": "포세이돈의 전설의 삼지창",
+      "price": 500,
+      "attack": 10,
+      "category": "Equipment"
+    }
+  ]
+}
