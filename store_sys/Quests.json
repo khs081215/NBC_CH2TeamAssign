@@ -1,0 +1,172 @@
+{
+  "quests": [
+    {
+      "id": 1,
+      "type": "KillMonster",
+      "title": "말랑말랑한 슬라임, 밟아도 되겠지?",
+      "target": "Slime",
+      "count": 5,
+      "prerequisites": []
+    },
+    {
+      "id": 2,
+      "type": "KillMonster",
+      "title": "슬라임이 또 나온다고? 이번엔 10마리다",
+      "target": "Slime",
+      "count": 10,
+      "prerequisites": [ 1 ]
+    },
+    {
+      "id": 3,
+      "type": "KillMonster",
+      "title": "고블린들아, 여기 사람 산다",
+      "target": "Goblin",
+      "count": 5,
+      "prerequisites": [ 2 ]
+    },
+    {
+      "id": 4,
+      "type": "KillMonster",
+      "title": "고블린 소굴 청소 좀 해주세요",
+      "target": "Goblin",
+      "count": 10,
+      "prerequisites": [ 3 ]
+    },
+    {
+      "id": 5,
+      "type": "KillMonster",
+      "title": "늑대가 밤마다 울어요… 잠 좀 자게 해줘요",
+      "target": "Wolf",
+      "count": 5,
+      "prerequisites": [ 4 ]
+    },
+    {
+      "id": 6,
+      "type": "KillMonster",
+      "title": "늑대 무리가 마을을 노리고 있다",
+      "target": "Wolf",
+      "count": 10,
+      "prerequisites": [ 5 ]
+    },
+    {
+      "id": 7,
+      "type": "KillMonster",
+      "title": "오크 발견! 근데 생각보다 크다",
+      "target": "Orc",
+      "count": 3,
+      "prerequisites": [ 6 ]
+    },
+    {
+      "id": 8,
+      "type": "KillMonster",
+      "title": "오크들이 단체로 회식 중이랍니다",
+      "target": "Orc",
+      "count": 6,
+      "prerequisites": [ 7 ]
+    },
+    {
+      "id": 15,
+      "type": "KillMonster",
+      "title": "트롤? 다리 밑에 산다던 그 녀석?",
+      "target": "Troll",
+      "count": 3,
+      "prerequisites": [ 14 ]
+    },
+    {
+      "id": 101,
+      "type": "KillMonster",
+      "title": "슬라임이 너무 미끈거려요",
+      "target": "Slime",
+      "count": 3,
+      "prerequisites": []
+    },
+    {
+      "id": 102,
+      "type": "KillMonster",
+      "title": "슬라임 젤리가 마을에 굴러다녀요",
+      "target": "Slime",
+      "count": 7,
+      "prerequisites": []
+    },
+    {
+      "id": 103,
+      "type": "KillMonster",
+      "title": "고블린이 내 도시락 훔쳐갔어요",
+      "target": "Goblin",
+      "count": 5,
+      "prerequisites": []
+    },
+    {
+      "id": 104,
+      "type": "KillMonster",
+      "title": "고블린이 밤마다 소란을 피웁니다",
+      "target": "Goblin",
+      "count": 8,
+      "prerequisites": []
+    },
+    {
+      "id": 105,
+      "type": "KillMonster",
+      "title": "오크가 숲에서 고기를 굽고 있어요",
+      "target": "Orc",
+      "count": 2,
+      "prerequisites": []
+    },
+    {
+      "id": 106,
+      "type": "KillMonster",
+      "title": "오크가 길을 막고 위협합니다",
+      "target": "Orc",
+      "count": 4,
+      "prerequisites": []
+    },
+    {
+      "id": 107,
+      "type": "KillMonster",
+      "title": "트롤이 다리를 점거했어요",
+      "target": "Troll",
+      "count": 1,
+      "prerequisites": []
+    },
+    {
+      "id": 108,
+      "type": "KillMonster",
+      "title": "트롤이 낚시꾼을 놀래키고 있어요",
+      "target": "Troll",
+      "count": 2,
+      "prerequisites": []
+    },
+    {
+      "id": 109,
+      "type": "KillMonster",
+      "title": "슬라임이 밭을 엉망으로 만들었어요",
+      "target": "Slime",
+      "count": 6,
+      "prerequisites": []
+    },
+    {
+      "id": 110,
+      "type": "KillMonster",
+      "title": "고블린들이 장난이 너무 심해요",
+      "target": "Goblin",
+      "count": 6,
+      "prerequisites": []
+    },
+    {
+      "id": 111,
+      "type": "KillMonster",
+      "title": "오크 순찰대가 마을 근처에 나타났어요",
+      "target": "Orc",
+      "count": 3,
+      "prerequisites": []
+    },
+    {
+      "id": 112,
+      "type": "KillMonster",
+      "title": "트롤이 밤마다 소리를 질러요",
+      "target": "Troll",
+      "count": 2,
+      "prerequisites": []
+    }
+  ]
+}

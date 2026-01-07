@@ -36,4 +36,3 @@ Monster::Monster(int L, string inName = "default")
     Hp = rand() % (L * 10 + 1) + (L * 20);         //Hp 랜덤하게
     Atk = rand() % (L * 5 + 1) + (L * 5);          //Atk 랜덤하게
 }
-

@@ -13,216 +13,266 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\item">
+      <UniqueIdentifier>{52769b70-9d7b-4a24-b617-cb68989a38aa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Quest">
+      <UniqueIdentifier>{b5d3676c-742d-409f-8a14-0f5e95c3d4b5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UI">
+      <UniqueIdentifier>{03948940-895d-42ea-8490-0ea65ea503f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Actor">
+      <UniqueIdentifier>{d3e36d11-2c1d-47aa-9a40-8c8b03fd3fa1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="CityData.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Store.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Utils.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="StoreUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="City.cpp">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="QuestManager.h">
+      <Filter>Header Files\Quest</Filter>
     </ClCompile>
     <ClCompile Include="AttackBoost.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthPotion.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Consumable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Equipable.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="InventoryUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QuestManager.h">
-      <Filter>Header Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QuestManager.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QuestFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SimpleQuest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="KillMonsterQuest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Inventory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QuestUI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="QuestDatabase.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MerchantLines.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MasterItems.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Orc.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Slime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Troll.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Goblin.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="GameManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\item</Filter>
     </ClCompile>
     <ClCompile Include="Boss.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Consumable.cpp">
+      <Filter>Header Files\item</Filter>
+    </ClCompile>
+    <ClCompile Include="Equipable.cpp">
+      <Filter>Header Files\item</Filter>
+    </ClCompile>
+    <ClCompile Include="UI.cpp">
+      <Filter>Header Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="StoreUI.cpp">
+      <Filter>Header Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestUI.cpp">
+      <Filter>Header Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Troll.cpp">
+      <Filter>Header Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Store.cpp">
+      <Filter>Header Files\item</Filter>
+    </ClCompile>
+    <ClCompile Include="InventoryUI.cpp">
+      <Filter>Header Files\item</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Header Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Utils.cpp">
+      <Filter>Header Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestFactory.cpp">
+      <Filter>Header Files\Quest</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestManager.cpp">
+      <Filter>Header Files\Quest</Filter>
+    </ClCompile>
+    <ClCompile Include="Orc.cpp">
+      <Filter>Header Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>Header Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Goblin.cpp">
+      <Filter>Header Files\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Header Files\Actor</Filter>
     </ClCompile>
     <ClCompile Include="printonebyone.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\UI</Filter>
     </ClCompile>
     <ClCompile Include="printasciipicture.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="SimpleQuest.cpp">
+      <Filter>Header Files\Quest</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>Header Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="Inventory.cpp">
+      <Filter>Header Files\item</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthPotion.cpp">
+      <Filter>Header Files\item</Filter>
+    </ClCompile>
+    <ClCompile Include="KillMonsterQuest.cpp">
+      <Filter>Header Files\Quest</Filter>
+    </ClCompile>
+    <ClCompile Include="QuestDatabase.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MerchantLines.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CityData.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MasterItems.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopReviews.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="City.cpp">
+      <Filter>Resource Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CityUI.cpp">
+      <Filter>Header Files\UI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CityData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemBase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Store.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Utils.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="City.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="StoreUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AttackBoost.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthPotion.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Item.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="InventoryUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuestEvent.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuestCondition.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Quest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuestFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="KillMonsterQuest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SimpleQuest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Inventory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuestUI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuestData.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuestDatabase.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="QuestReward.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemReward.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MerchantLines.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MasterItems.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="ItemType.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Orc.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Slime.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Troll.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Goblin.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="GameManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="AttackBoost.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthPotion.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="Inventory.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="InventoryUI.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
     <ClInclude Include="ItemAdapter.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemBase.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemReward.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="ItemType.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="Quest.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestData.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestCondition.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestDatabase.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestEvent.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestFactory.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestUI.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="SimpleQuest.h">
+      <Filter>Header Files\Quest</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Actor</Filter>
     </ClInclude>
-    <ClInclude Include="printonebyone.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Goblin.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="KillMonsterQuest.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="MasterItems.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="QuestReward.h">
+      <Filter>Header Files\Quest</Filter>
+    </ClInclude>
+    <ClInclude Include="MerchantLines.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="Store.h">
+      <Filter>Header Files\item</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Troll.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Utils.h">
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
     <ClInclude Include="printasciipicture.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UI</Filter>
     </ClInclude>
+    <ClInclude Include="printonebyone.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="Orc.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="json.hpp">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopReviews.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StoreUI.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="CityUI.h">
+      <Filter>Header Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="City.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CityData.h">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Herbal_reviews.json">
+      <Filter>Resource Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="items.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="shop_reviews.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Equipment_revies.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Food_reviews.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="General_reviews.json">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="Quests.json">
+      <Filter>Resource Files</Filter>
+    </None>
   </ItemGroup>
 </Project>

@@ -1,30 +1,94 @@
 #include "MasterItems.h"
 
-std::vector<std::unique_ptr<ItemBase>> getMasterItems() {
+#include <fstream>
+#include <stdexcept>
+#include <iostream>
+#include "json.hpp"
+
+using json = nlohmann::json;
+
+// 내부 전용 함수: 문자열 → ShopType
+static ShopType shopTypeFromString(std::string s)
+{
+    // 앞뒤 공백 제거 (JSON 실수 방어)
+    s.erase(0, s.find_first_not_of(" \t\n\r"));
+    s.erase(s.find_last_not_of(" \t\n\r") + 1);
+
+    if (s == "General")    return ShopType::General;
+    if (s == "Food")       return ShopType::Food;
+    if (s == "Herbal")     return ShopType::Herbal;
+    if (s == "Equipment")  return ShopType::Equipment;
+
+    // 알 수 없는 값은 기본값으로 처리 (게임 안 죽게)
+    return ShopType::General;
+}
+
+std::vector<std::unique_ptr<ItemBase>> getMasterItems()
+{
     std::vector<std::unique_ptr<ItemBase>> items;
 
-    // Consumable
-    items.push_back(std::make_unique<Consumable>("kechup", "극심한 HP 회복", 100, 50, ShopType::General));
-    items.push_back(std::make_unique<Consumable>("보리밥", "콩밥은 아직준비되지않음", 40, 10, ShopType::Food));
-    items.push_back(std::make_unique<Consumable>("킹크랩", "그리운맛.", 120, 30, ShopType::Food));
-    items.push_back(std::make_unique<Consumable>("식물이", "식집사가 애지중지키운 약초", 80, 20, ShopType::Herbal));
-    items.push_back(std::make_unique<Consumable>("사약", "만병치료제", 150, 0, ShopType::Herbal));
-    items.push_back(std::make_unique<Consumable>("허브차", "체력을 천천히 회복", 30, 15, ShopType::Herbal));
-    items.push_back(std::make_unique<Consumable>("사과", "달콤한 사과, HP 5 회복", 10, 5, ShopType::Food));
-    items.push_back(std::make_unique<Consumable>("빵", "포만감 회복", 20, 10, ShopType::Food));
-    items.push_back(std::make_unique<Consumable>("엘릭서", "HP & MP 완전 회복", 300, 100, ShopType::General));
-    items.push_back(std::make_unique<Consumable>("당근", "HP 소량 회복", 5, 2, ShopType::Food));
-    items.push_back(std::make_unique<Consumable>("독약", "사용 시 HP 감소", 50, -20, ShopType::Herbal));
+    std::ifstream file("items.json");
+    if (!file.is_open())
+        throw std::runtime_error("Failed to open items.json");
 
-    // Equipable
-    items.push_back(std::make_unique<Equipable>("포크", "포세이돈의 전설의 삼지창", 500, 10, ShopType::Equipment));
-    items.push_back(std::make_unique<Equipable>("냄비뚜껑", "주방템(방패)", 300, 5, ShopType::Equipment));
-    items.push_back(std::make_unique<Equipable>("4b연필", "미술인시티 최첨단무기", 250, 6, ShopType::Equipment));
-    items.push_back(std::make_unique<Equipable>("강철팬티", "가벼운 방어구.치명타방어", 400, 4, ShopType::Equipment));
-    items.push_back(std::make_unique<Equipable>("나무검", "초보용 무기", 100, 2, ShopType::Equipment));
-    items.push_back(std::make_unique<Equipable>("철검", "평범한 검", 200, 5, ShopType::Equipment));
-    items.push_back(std::make_unique<Equipable>("강철갑옷", "방어력 +10", 500, 0, ShopType::Equipment));
-    items.push_back(std::make_unique<Equipable>("마법지팡이", "마법 공격 +8", 450, 8, ShopType::Equipment));
+    json j;
+
+    // 🔒 JSON 파싱 보호
+    try {
+        file >> j;
+    }
+    catch (const json::parse_error& e) {
+        throw std::runtime_error(
+            std::string("JSON parse error: ") + e.what()
+        );
+    }
+
+    // 🔒 최상위는 반드시 배열이어야 함
+    if (!j.is_array())
+        throw std::runtime_error("items.json root must be an array");
+
+    for (const auto& item : j)
+    {
+        try {
+            // 필수 필드 검증
+            if (!item.contains("type") ||
+                !item.contains("name") ||
+                !item.contains("description") ||
+                !item.contains("price") ||
+                !item.contains("value") ||
+                !item.contains("shop"))
+            {
+                continue; // 하나라도 없으면 스킵
+            }
+
+            std::string type = item["type"].get<std::string>();
+            std::string name = item["name"].get<std::string>();
+            std::string desc = item["description"].get<std::string>();
+            int price = item["price"].get<int>();
+            int value = item["value"].get<int>();
+            ShopType shop = shopTypeFromString(
+                item["shop"].get<std::string>()
+            );
+
+            if (type == "Consumable")
+            {
+                items.push_back(
+                    std::make_unique<Consumable>(name, desc, price, value, shop)
+                );
+            }
+            else if (type == "Equipable")
+            {
+                items.push_back(
+                    std::make_unique<Equipable>(name, desc, price, value, shop)
+                );
+            }
+            // 알 수 없는 타입은 조용히 무시
+        }
+        catch (const std::exception&) {
+            // 🔥 잘못된 아이템 하나 때문에 전체가 죽지 않게
+            continue;
+        }
+    }
 
     return items;
 }

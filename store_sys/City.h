@@ -7,6 +7,7 @@
 #include <string>
 #include "Store.h"
 #include "ItemBase.h"
+#include "Inventory.h"
 using namespace std;
 
 struct City {
@@ -16,7 +17,12 @@ struct City {
 
 int selectStore(const City& city);
 MerchantPersonality choosePersonality();
-void goToStore(const City& currentCity,
+
+
+void goToStore(
+    const City& currentCity,
     Player& player,
-    vector<unique_ptr<ItemBase>>& inventory,
-    int& gold);
+    Inventory& inventory,
+    int& gold
+);
+

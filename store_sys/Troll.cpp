@@ -5,7 +5,7 @@
 #define COLOR_RESET "\033[0m"
 
 // Troll 구현
-Troll::Troll(int Playerlevel) : Monster(Playerlevel,"Troll")
+Troll::Troll(int Playerlevel) : Monster(Playerlevel, "Troll")
 {
 
 }
